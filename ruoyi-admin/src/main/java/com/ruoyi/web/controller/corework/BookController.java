@@ -4,6 +4,7 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.corework.domain.Book;
 import com.ruoyi.corework.service.BookService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+   @ApiOperation("图书列表")
     @GetMapping("/bookList")
     public AjaxResult getBookList(Book book) {
         return AjaxResult.success(bookService.selectBookList(book));

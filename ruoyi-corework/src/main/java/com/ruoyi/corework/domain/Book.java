@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -39,5 +40,22 @@ public class Book {
 
     @ApiModelProperty(value = "状态，0=可借，1=已借出", example = "0")
     private String status;
+
+    @ApiModelProperty(value = "创建人")
+    private String createBy;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime createTime;
+
+    @ApiModelProperty(value = "修改人")
+    private String updateBy;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "修改时间")
+    private LocalDateTime updateTime;
+
+    @ApiModelProperty(value = "备注")
+    private String remark;
 
 }

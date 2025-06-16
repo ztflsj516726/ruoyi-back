@@ -35,7 +35,7 @@ public class SwaggerConfig
     private RuoYiConfig ruoyiConfig;
 
     /** 是否开启swagger */
-    @Value("${swagger.enabled}")
+    @Value("true")
     private boolean enabled;
 
     /** 设置请求的统一前缀 */

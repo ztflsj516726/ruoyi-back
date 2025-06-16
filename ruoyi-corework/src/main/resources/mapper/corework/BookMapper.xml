@@ -7,7 +7,7 @@
 
     <!--  查询所有图书，可带条件  -->
     <select id="selectBookList" resultType="com.ruoyi.corework.domain.Book">
-        select id,name,author,isbn,publish_date,status
+        select id,name,author,isbn,publish_date,status,create_by,create_time,update_by,update_time,remark
         from library_book
         <where>
             <if test="name != null and name !=''">
