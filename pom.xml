@@ -210,6 +210,12 @@
                 <artifactId>ruoyi-system</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
+            <!-- 核心业务模块-->
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-corework</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
 
             <!-- 通用工具-->
             <dependency>
@@ -228,6 +234,7 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
+        <module>ruoyi-corework</module>
     </modules>
     <packaging>pom</packaging>
 
