@@ -1,6 +1,7 @@
 package com.ruoyi.corework.service;
 
 import com.ruoyi.corework.domain.Book;
+import com.ruoyi.corework.domain.dto.BookDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,5 +18,5 @@ import java.util.List;
 public interface BookService {
 
     // 查询图书列表
-    List<Book> selectBookList(Book book);
+    List<Book> selectBookList(BookDto bookDto);
 }

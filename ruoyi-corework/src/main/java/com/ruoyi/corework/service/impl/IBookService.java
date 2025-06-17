@@ -1,6 +1,8 @@
 package com.ruoyi.corework.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.ruoyi.corework.domain.Book;
+import com.ruoyi.corework.domain.dto.BookDto;
 import com.ruoyi.corework.mapper.BookMapper;
 import com.ruoyi.corework.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,9 @@ public class IBookService implements BookService {
 
     @Autowired
     private BookMapper bookMapper;
+
     @Override
-    public List<Book> selectBookList(Book book) {
-        System.out.println("book = " + bookMapper.selectBookList(book));
-        return bookMapper.selectBookList(book);
+    public List<Book> selectBookList(BookDto bookDto) {
+        return bookMapper.selectBookList(bookDto);
     }
 }
