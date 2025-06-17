@@ -19,6 +19,12 @@
             <if test="status  != null and status  !=''">
                 AND status = #{status}
             </if>
+            <if test="startDate != null">
+                AND publish_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND publish_date &lt;= #{endDate}
+            </if>
         </where>
     </select>
 
@@ -52,6 +58,9 @@
                 remark = #{remark},
             </if>
         </set>
+        <where>
+            id = #{id}
+        </where>
     </update>
 
     <!--  图书详情  -->

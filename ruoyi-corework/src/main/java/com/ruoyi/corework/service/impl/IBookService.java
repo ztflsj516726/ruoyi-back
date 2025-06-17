@@ -40,15 +40,15 @@ public class IBookService implements BookService {
         if (book.getStatus() == null) {
             book.setStatus("0");
         }
-        if (book.getId() != null) {
+        if (book.getId() == null) {
             book.setCreateBy(SecurityUtils.getUsername());
             book.setCreateTime(LocalDateTime.now());
             // 修改图书
-            return bookMapper.updateBook(book);
+            return bookMapper.insertBook(book);
         } else {
             book.setUpdateBy(SecurityUtils.getUsername());
             book.setUpdateTime(LocalDateTime.now());
-            return bookMapper.insertBook(book);
+            return bookMapper.updateBook(book);
         }
     }
 

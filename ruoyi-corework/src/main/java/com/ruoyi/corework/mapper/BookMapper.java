@@ -18,7 +18,7 @@ import java.util.List;
 @Mapper
 public interface BookMapper {
     // 查询所有图书
-    List<Book> selectBookList(BookQueryDto bookDto);
+    List<Book> selectBookList(BookQueryDto bookQueryDto);
 
     // 新增图书
     Integer insertBook(Book book);

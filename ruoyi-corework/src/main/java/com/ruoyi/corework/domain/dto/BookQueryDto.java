@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -20,8 +21,6 @@ import java.util.Date;
 @ApiModel("图书列表查询对象")
 public class BookQueryDto {
 
-    @ApiModelProperty(value = "图书ID", example = "1001")
-    private Long id;
 
     @ApiModelProperty(value = "页码")
     private Integer pageNum;
@@ -38,9 +37,13 @@ public class BookQueryDto {
     @ApiModelProperty(value = "ISBN编号")
     private String isbn;
 
-    @ApiModelProperty(value = "出版日期", example = "2020-01-01")
+    @ApiModelProperty(value = "出版开始日期", example = "2020-01-01")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
+
+    @ApiModelProperty(value = "出版结束日期", example = "2020-01-01")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date publishDate;
+    private Date endDate;
 
     @ApiModelProperty(value = "状态，0=可借，1=已借出", example = "0")
     private String status;

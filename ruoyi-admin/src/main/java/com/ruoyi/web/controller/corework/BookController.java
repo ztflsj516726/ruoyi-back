@@ -36,9 +36,9 @@ public class BookController extends BaseController {
 
     @ApiOperation(value = "图书列表")
     @GetMapping(value = "/bookList")
-    public TableDataInfo<Book> getBookList(BookQueryDto bookDto) {
+    public TableDataInfo<Book> getBookList(BookQueryDto bookQueryDto) {
         startPage();
-        List<Book> list = bookService.selectBookList(bookDto);
+        List<Book> list = bookService.selectBookList(bookQueryDto);
         return getDataTable(list);
     }
 
