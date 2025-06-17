@@ -24,9 +24,13 @@ public interface BookMapper {
     Integer insertBook(Book book);
 
     // 修改图书
-
     Integer updateBook(Book book);
 
+    //图书详情
+    Book detail(Long id);
+
+    // 删除图书
+    Integer deleteBookByIds(List<Integer> ids);
 
 //    // 根据ID查询图书
 //    Book selectBookById(Long id);

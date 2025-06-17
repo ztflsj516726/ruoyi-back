@@ -37,15 +37,28 @@ public class IBookService implements BookService {
     public Integer saveBook(BookSaveDto bookSaveDto) {
         Book book = new Book();
         BeanUtils.copyProperties(bookSaveDto, book);
+        if (book.getStatus() == null) {
+            book.setStatus("0");
+        }
         if (book.getId() != null) {
             book.setCreateBy(SecurityUtils.getUsername());
             book.setCreateTime(LocalDateTime.now());
             // 修改图书
             return bookMapper.updateBook(book);
-        }else{
+        } else {
             book.setUpdateBy(SecurityUtils.getUsername());
             book.setUpdateTime(LocalDateTime.now());
             return bookMapper.insertBook(book);
         }
+    }
+
+    @Override
+    public Book detail(Long id) {
+        return bookMapper.detail(id);
+    }
+
+    @Override
+    public Integer deleteBookByIds(List<Integer> ids) {
+        return bookMapper.deleteBookByIds(ids);
     }
 }

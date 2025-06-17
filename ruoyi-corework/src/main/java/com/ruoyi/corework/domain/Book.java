@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -20,7 +21,9 @@ import java.util.Date;
 
 @Data
 @ApiModel(description = "图书实体类")
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "图书ID", example = "1001")
     private Long id;
 
@@ -37,7 +40,7 @@ public class Book {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date publishDate;
 
-    @ApiModelProperty(value = "状态，0=可借，1=已借出", example = "0")
+    @ApiModelProperty(value = "借阅状态，0=可借，1=已借出", example = "0")
     private String status;
 
     @ApiModelProperty(value = "创建人")

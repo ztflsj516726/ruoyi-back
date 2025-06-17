@@ -22,4 +22,10 @@ public interface BookService {
 
     // 新增图书
     Integer saveBook(BookSaveDto bookSaveDto);
+
+    // 图书详情
+    Book detail(Long id);
+
+    // 图书删除
+    Integer deleteBookByIds(List<Integer> ids);
 }

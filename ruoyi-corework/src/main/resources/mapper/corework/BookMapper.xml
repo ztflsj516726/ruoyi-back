@@ -14,7 +14,7 @@
                 AND name LIKE CONCAT('%', #{name}, '%')
             </if>
             <if test="author  != null and author  !=''">
-                AND author  LIKE CONCAT('%', #{author }, '%')
+                AND author LIKE CONCAT('%', #{author }, '%')
             </if>
             <if test="status  != null and status  !=''">
                 AND status = #{status}
@@ -24,7 +24,8 @@
 
     <!--  新增图书  -->
     <insert id="insertBook" parameterType="com.ruoyi.corework.domain.Book">
-        insert into library_book(name,author,isbn,publish_date,status,create_by,create_time,update_by,update_time,remark)
+        insert into
+        library_book(name,author,isbn,publish_date,status,create_by,create_time,update_by,update_time,remark)
         values(#{name},#{author},#{isbn},#{publishDate},#{status},#{createBy},#{createTime},#{updateBy},#{updateTime},#{remark})
     </insert>
 
@@ -53,6 +54,20 @@
         </set>
     </update>
 
+    <!--  图书详情  -->
+    <select id="detail" resultType="com.ruoyi.corework.domain.Book" parameterType="java.lang.Long">
+        select id,name,author,isbn,publish_date,status,create_by,create_time,update_by,update_time,remark
+        from library_book
+        where id = #{id}
+    </select>
+
+    <!-- 删除图书 -->
+    <delete id="deleteBookByIds">
+        delete from library_book where id in
+        <foreach collection="collection" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 
 </mapper>
