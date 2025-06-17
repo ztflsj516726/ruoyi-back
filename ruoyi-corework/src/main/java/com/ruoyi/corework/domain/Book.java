@@ -21,7 +21,6 @@ import java.util.Date;
 @Data
 @ApiModel(description = "图书实体类")
 public class Book {
-
     @ApiModelProperty(value = "图书ID", example = "1001")
     private Long id;
 

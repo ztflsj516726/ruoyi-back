@@ -22,5 +22,37 @@
         </where>
     </select>
 
+    <!--  新增图书  -->
+    <insert id="insertBook" parameterType="com.ruoyi.corework.domain.Book">
+        insert into library_book(name,author,isbn,publish_date,status,create_by,create_time,update_by,update_time,remark)
+        values(#{name},#{author},#{isbn},#{publishDate},#{status},#{createBy},#{createTime},#{updateBy},#{updateTime},#{remark})
+    </insert>
+
+    <!--  修改图书  -->
+    <update id="updateBook" parameterType="com.ruoyi.corework.domain.Book">
+        update library_book
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="author != null">
+                author = #{author},
+            </if>
+            <if test="isbn != null">
+                isbn = #{isbn},
+            </if>
+            <if test="publishDate != null">
+                publish_date = #{publishDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+    </update>
+
+
 
 </mapper>

@@ -1,85 +1,65 @@
 package com.ruoyi.common.core.page;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 表格分页数据对象
- * 
- * @author ruoyi
- */
-public class TableDataInfo implements Serializable
-{
+@ApiModel("分页返回对象")
+public class TableDataInfo<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /** 总记录数 */
+    @ApiModelProperty("总记录数")
     private long total;
 
-    /** 列表数据 */
-    private List<?> rows;
+    @ApiModelProperty(value = "数据列表", name = "data")
+    @JsonProperty("data")
+    private List<T> rows;
 
-    /** 消息状态码 */
+    @ApiModelProperty("状态码")
     private int code;
 
-    /** 消息内容 */
+    @ApiModelProperty("提示信息")
     private String msg;
 
-    /**
-     * 表格数据对象
-     */
-    public TableDataInfo()
-    {
-    }
+    public TableDataInfo() {}
 
-    /**
-     * 分页
-     * 
-     * @param list 列表数据
-     * @param total 总记录数
-     */
-    public TableDataInfo(List<?> list, long total)
-    {
+    public TableDataInfo(List<T> list, long total) {
         this.rows = list;
         this.total = total;
     }
 
-    public long getTotal()
-    {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(long total)
-    {
+    public void setTotal(long total) {
         this.total = total;
     }
 
-    public List<?> getRows()
-    {
+    public List<T> getRows() {
         return rows;
     }
 
-    public void setRows(List<?> rows)
-    {
+    public void setRows(List<T> rows) {
         this.rows = rows;
     }
 
-    public int getCode()
-    {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(int code)
-    {
+    public void setCode(int code) {
         this.code = code;
     }
 
-    public String getMsg()
-    {
+    public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg)
-    {
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 }

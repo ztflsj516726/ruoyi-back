@@ -1,7 +1,7 @@
 package com.ruoyi.corework.mapper;
 
 import com.ruoyi.corework.domain.Book;
-import com.ruoyi.corework.domain.dto.BookDto;
+import com.ruoyi.corework.domain.dto.BookQueryDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,7 +18,15 @@ import java.util.List;
 @Mapper
 public interface BookMapper {
     // 查询所有图书
-    List<Book> selectBookList(BookDto bookDto);
+    List<Book> selectBookList(BookQueryDto bookDto);
+
+    // 新增图书
+    Integer insertBook(Book book);
+
+    // 修改图书
+
+    Integer updateBook(Book book);
+
 
 //    // 根据ID查询图书
 //    Book selectBookById(Long id);

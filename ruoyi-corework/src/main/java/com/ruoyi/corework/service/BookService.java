@@ -1,8 +1,8 @@
 package com.ruoyi.corework.service;
 
 import com.ruoyi.corework.domain.Book;
-import com.ruoyi.corework.domain.dto.BookDto;
-import org.springframework.stereotype.Service;
+import com.ruoyi.corework.domain.dto.BookQueryDto;
+import com.ruoyi.corework.domain.dto.BookSaveDto;
 
 import java.util.List;
 
@@ -18,5 +18,8 @@ import java.util.List;
 public interface BookService {
 
     // 查询图书列表
-    List<Book> selectBookList(BookDto bookDto);
+    List<Book> selectBookList(BookQueryDto bookDto);
+
+    // 新增图书
+    Integer saveBook(BookSaveDto bookSaveDto);
 }

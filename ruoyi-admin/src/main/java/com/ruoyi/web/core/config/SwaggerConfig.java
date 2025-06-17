@@ -2,6 +2,8 @@ package com.ruoyi.web.core.config;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +23,7 @@ import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Swagger2的接口配置
@@ -28,6 +31,8 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author ruoyi
  */
 @Configuration
+@EnableSwagger2
+@EnableKnife4j
 public class SwaggerConfig
 {
     /** 系统基础配置 */
@@ -38,9 +43,11 @@ public class SwaggerConfig
     @Value("true")
     private boolean enabled;
 
-    /** 设置请求的统一前缀 */
-    @Value("${swagger.pathMapping}")
-    private String pathMapping;
+    @Value("ruoyi接口文档")
+    private String title;
+
+    @Value("ruoyi描述")
+    private String desc;
 
     /**
      * 创建API
@@ -64,8 +71,7 @@ public class SwaggerConfig
                 .build()
                 /* 设置安全模式，swagger可以设置访问token */
                 .securitySchemes(securitySchemes())
-                .securityContexts(securityContexts())
-                .pathMapping(pathMapping);
+                .securityContexts(securityContexts());
     }
 
     /**
@@ -113,9 +119,9 @@ public class SwaggerConfig
         // 用ApiInfoBuilder进行定制
         return new ApiInfoBuilder()
                 // 设置标题
-                .title("标题：若依管理系统_接口文档")
+                .title(title)
                 // 描述
-                .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
+                .description(desc)
                 // 作者信息
                 .contact(new Contact(ruoyiConfig.getName(), null, null))
                 // 版本

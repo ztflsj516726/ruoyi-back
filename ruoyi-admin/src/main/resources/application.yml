@@ -1,7 +1,7 @@
 # 项目相关配置
 ruoyi:
   # 名称
-  name: RuoYi
+  name: ztf
   # 版本
   version: 3.9.0
   # 版权年份
@@ -120,8 +120,11 @@ pagehelper:
 swagger:
   # 是否开启swagger
   enabled: true
-  # 请求前缀
-  pathMapping: /
+  # 标题
+  title: ruoyi接口文档
+  # 描述
+  desc: ruoyi描述
+
 
 # 防止XSS攻击
 xss:

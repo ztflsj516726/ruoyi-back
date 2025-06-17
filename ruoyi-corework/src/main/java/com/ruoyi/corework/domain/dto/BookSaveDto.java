@@ -8,23 +8,20 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * ClassName:BookDto
+ * ClassName:BookSaveDto
  * Package:IntelliJ IDEA
  * Description:
  *
  * @Author ztf
- * @Create 2025/6/17-8:43
+ * @Create 2025/6/17-11:35
  * @Version 1.0
  */
 @Data
-@ApiModel("图书列表查询对象")
-public class BookDto {
+@ApiModel("图书添加对象")
+public class BookSaveDto {
 
-    @ApiModelProperty(value = "页码")
-    private Integer pageNum;
-
-    @ApiModelProperty(value = "每页数量")
-    private Integer pageSize;
+    @ApiModelProperty(value = "图书ID", example = "1001")
+    private Long id;
 
     @ApiModelProperty(value = "书名")
     private String name;
@@ -41,8 +38,7 @@ public class BookDto {
 
     @ApiModelProperty(value = "状态，0=可借，1=已借出", example = "0")
     private String status;
+
+    @ApiModelProperty(value = "备注")
+    private String remark;
 }
-
-
-
-
