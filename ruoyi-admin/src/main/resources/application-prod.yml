@@ -1,0 +1,44 @@
+# 项目相关配置
+ruoyi:
+  # 生产环境上传路径，覆盖开发环境路径
+  profile: /root/data/ruoyi/uploadPath
+# 生产环境配置
+server:
+  # 端口（如果和开发端口相同，可不写）
+  port: 8080
+  servlet:
+    context-path: /dev-api
+  tomcat:
+    uri-encoding: UTF-8
+    accept-count: 1000
+    threads:
+      max: 800
+      min-spare: 100
+# 日志级别覆盖为 info
+logging:
+  level:
+    com.ruoyi: info
+    org.springframework: warn
+
+# Redis 覆盖生产环境地址
+spring:
+  redis:
+    host: 10.0.0.158
+    port: 6380
+    database: 0
+    password:
+    timeout: 10s
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
+
+# Swagger 生产环境一般禁用或按需开启
+swagger:
+  enabled: true
+  title: ruoyi接口文档
+  desc: ruoyi描述
+
+
