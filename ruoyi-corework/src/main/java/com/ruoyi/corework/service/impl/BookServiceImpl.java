@@ -1,20 +1,19 @@
 package com.ruoyi.corework.service.impl;
 
+import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.corework.domain.Book;
 import com.ruoyi.corework.domain.dto.BookQueryDto;
 import com.ruoyi.corework.domain.dto.BookSaveDto;
 import com.ruoyi.corework.mapper.BookMapper;
-import com.ruoyi.corework.service.BookService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * ClassName:IBookService
+ * ClassName:BookServiceImpl
  * Package:IntelliJ IDEA
  * Description:
  *
@@ -23,7 +22,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Service
-public class IBookService implements BookService {
+public class BookServiceImpl implements com.ruoyi.corework.service.IBookService {
 
     @Autowired
     private BookMapper bookMapper;
@@ -42,12 +41,12 @@ public class IBookService implements BookService {
         }
         if (book.getId() == null) {
             book.setCreateBy(SecurityUtils.getUsername());
-            book.setCreateTime(LocalDateTime.now());
+            book.setCreateTime(DateUtils.getNowDate());
             // 修改图书
             return bookMapper.insertBook(book);
         } else {
             book.setUpdateBy(SecurityUtils.getUsername());
-            book.setUpdateTime(LocalDateTime.now());
+            book.setUpdateTime(DateUtils.getNowDate());
             return bookMapper.updateBook(book);
         }
     }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.ruoyi.corework.mapper.AssetApplyMapper">
+    <!--  新增  -->
+    <insert id="insertAssetApply" useGeneratedKeys="true" keyProperty="id">
+        Insert into asset_apply ( apply_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
+        update_time,create_by, update_by)
+        values ( #{applyUserId},#{deptId}, #{applyTime}, #{status}, #{reason},
+        #{flowId},#{createTime},#{updateTime},#{createBy},#{updateBy})
+    </insert>
+
+    <!--   主表更新  -->
+    <update id="updateAssetApply">
+        update asset_apply
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="reason != null">
+                reason = #{reason},
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="deleteAssetApplyDetail">
+        delete from asset_apply_detail where apply_id = #{id}
+    </delete>
+    <delete id="deleteAssetApplyByIds">
+        delete from asset_apply where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--  列表查询  -->
+    <select id="selectAssetApplyList" resultType="com.ruoyi.corework.domain.AssetApply">
+        select id, apply_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
+        update_time,create_by, update_by
+        from asset_apply
+        <where>
+            <if test="deptId != null and deptId != ''">
+                and dept_id = #{deptId}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="selectAssetApplyById" resultType="com.ruoyi.corework.domain.AssetApply">
+        select id, apply_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
+        update_time,create_by, update_by
+        from asset_apply
+        where id = #{id}
+    </select>
+</mapper>

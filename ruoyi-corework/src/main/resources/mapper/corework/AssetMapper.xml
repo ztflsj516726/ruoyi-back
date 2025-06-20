@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.corework.mapper.AssetMapper">
+    
+    <resultMap type="Asset" id="AssetResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="category"    column="category"    />
+        <result property="model"    column="model"    />
+        <result property="unit"    column="unit"    />
+        <result property="totalStock"    column="total_stock"    />
+        <result property="usableStock"    column="usable_stock"    />
+        <result property="purchaseDate"    column="purchase_date"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAssetVo">
+        select id, name, category, model, unit, total_stock, usable_stock, purchase_date, remark, create_time, update_time
+        from asset
+    </sql>
+
+    <select id="selectAssetList" parameterType="Asset" resultMap="AssetResult">
+        <include refid="selectAssetVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="category != null  and category != ''"> and category = #{category}</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+            <if test="totalStock != null "> and total_stock = #{totalStock}</if>
+            <if test="usableStock != null "> and usable_stock = #{usableStock}</if>
+            <if test="purchaseDate != null "> and purchase_date = #{purchaseDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectAssetById" parameterType="Long" resultMap="AssetResult">
+        <include refid="selectAssetVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAsset" parameterType="Asset" useGeneratedKeys="true" keyProperty="id">
+        insert into asset
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="category != null and category != ''">category,</if>
+            <if test="model != null">model,</if>
+            <if test="unit != null">unit,</if>
+            <if test="totalStock != null">total_stock,</if>
+            <if test="usableStock != null">usable_stock,</if>
+            <if test="purchaseDate != null">purchase_date,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="category != null and category != ''">#{category},</if>
+            <if test="model != null">#{model},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="totalStock != null">#{totalStock},</if>
+            <if test="usableStock != null">#{usableStock},</if>
+            <if test="purchaseDate != null">#{purchaseDate},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAsset" parameterType="Asset">
+        update asset
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="category != null and category != ''">category = #{category},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="totalStock != null">total_stock = #{totalStock},</if>
+            <if test="usableStock != null">usable_stock = #{usableStock},</if>
+            <if test="purchaseDate != null">purchase_date = #{purchaseDate},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAssetById" parameterType="Long">
+        delete from asset where id = #{id}
+    </delete>
+
+    <delete id="deleteAssetByIds" parameterType="String">
+        delete from asset where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

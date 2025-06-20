@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.ruoyi.corework.mapper.AssetApplyDetailMapper">
+
+    <insert id="insertAssetApplyDetails">
+        INSERT INTO asset_apply_detail(apply_id, asset_id, count)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.applyId}, #{item.assetId}, #{item.count})
+        </foreach>
+    </insert>
+    <select id="selectAssetApplyByApplyId" resultType="com.ruoyi.corework.domain.AssetApplyDetail">
+        SELECT * FROM asset_apply_detail WHERE apply_id = #{applyId}
+    </select>
+</mapper>

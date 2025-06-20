@@ -7,7 +7,7 @@ import com.ruoyi.corework.domain.dto.BookSaveDto;
 import java.util.List;
 
 /**
- * ClassName:BookService
+ * ClassName:BookServiceImpl
  * Package:IntelliJ IDEA
  * Description:
  *
@@ -15,7 +15,7 @@ import java.util.List;
  * @Create 2025/6/16-16:34
  * @Version 1.0
  */
-public interface BookService {
+public interface IBookService {
 
     // 查询图书列表
     List<Book> selectBookList(BookQueryDto bookDto);

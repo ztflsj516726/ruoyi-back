@@ -1,0 +1,31 @@
+package com.ruoyi.corework.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+/**
+ * ClassName:AssetApplyDetail
+ * Package:IntelliJ IDEA
+ * Description:
+ *
+ * @Author ztf
+ * @Create 2025/6/20-14:46
+ * @Version 1.0
+ */
+@Data
+@ApiModel(description = "申请物资信息")
+public class AssetApplyDetail {
+    @ApiModelProperty("申请物资信息主键id")
+    private Long id;
+
+    @ApiModelProperty("申请单id")
+    private Long applyId;
+
+    @ApiModelProperty("物资id")
+    private Long assetId;
+
+    @ApiModelProperty("物资数量")
+    private Integer count;
+}

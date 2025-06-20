@@ -1,6 +1,7 @@
 package com.ruoyi.corework.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.common.core.domain.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,7 +22,7 @@ import java.util.Date;
 
 @Data
 @ApiModel(description = "图书实体类")
-public class Book implements Serializable {
+public class Book extends BaseEntity implements Serializable  {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "图书ID", example = "1001")
@@ -42,20 +43,6 @@ public class Book implements Serializable {
 
     @ApiModelProperty(value = "借阅状态，0=可借，1=已借出", example = "0")
     private String status;
-
-    @ApiModelProperty(value = "创建人")
-    private String createBy;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改人")
-    private String updateBy;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "备注")
     private String remark;
