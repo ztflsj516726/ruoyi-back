@@ -43,6 +43,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
         assetApply.setApplyTime(DateUtils.getNowDate());
         assetApply.setApplyUserId(SecurityUtils.getUserId());
         assetApply.setDeptId(SecurityUtils.getDeptId());
+        assetApply.setStatus("draft");
         // 插入主表
         assetApplyMapper.insertAssetApply(assetApply);
 
