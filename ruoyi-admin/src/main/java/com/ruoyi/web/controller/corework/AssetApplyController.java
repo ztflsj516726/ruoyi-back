@@ -35,7 +35,7 @@ public class AssetApplyController extends BaseController {
     private IAssetApplyService iAssetApplyService;
 
     @PostMapping("/applySave")
-    @ApiOperation("物资新增/修改")
+    @ApiOperation("物资申请单新增/修改")
     public AjaxResult apply(@RequestBody AssetApplySaveDto assetApplyDto) {
         String operation = assetApplyDto.getId() == null ? "新增" : "修改";
         int result = assetApplyDto.getId() == null

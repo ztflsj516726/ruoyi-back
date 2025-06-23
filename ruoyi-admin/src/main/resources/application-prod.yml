@@ -1,7 +1,7 @@
 # 项目相关配置
 ruoyi:
   # 生产环境上传路径，覆盖开发环境路径
-  profile: /root/data/ruoyi/uploadPath
+  profile: /root/data/ruoyi/ruoyi-back/uploadPath
 # 生产环境配置
 server:
   # 端口（如果和开发端口相同，可不写）
