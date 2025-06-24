@@ -4,16 +4,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * ClassName:AssetApplyQueryDto
+ * ClassName:MyTodoQueryDto
  * Package:IntelliJ IDEA
  * Description:
  *
  * @Author ztf
- * @Create 2025/6/20-16:47
+ * @Create 2025/6/24-16:56
  * @Version 1.0
  */
 @Data
-public class AssetApplyQueryDto {
+public class MyTodoQueryDto {
 
     @ApiModelProperty(value = "页码")
     private Integer pageNum;
@@ -24,12 +24,6 @@ public class AssetApplyQueryDto {
     @ApiModelProperty("申请所属部门")
     private Long deptId;
 
-    @ApiModelProperty("审批人")
-    private Long checkUserId;
-
-    @ApiModelProperty("创建人")
-    private Long applyUserId;
-
-    @ApiModelProperty("申请单状态：draft待提交, pending审批中, approved已通过, rejected驳回")
+    @ApiModelProperty("状态")
     private String status;
 }

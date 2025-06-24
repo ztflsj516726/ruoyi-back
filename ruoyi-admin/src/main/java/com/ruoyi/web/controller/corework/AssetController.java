@@ -42,7 +42,6 @@ public class AssetController extends BaseController {
     /**
      * 查询物资信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:asset:list')")
     @GetMapping("/list")
     @ApiOperation(value = "查询物资信息列表")
     public TableDataInfo<Asset> list(Asset asset) {
@@ -54,7 +53,6 @@ public class AssetController extends BaseController {
     /**
      * 导出物资信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:asset:export')")
     @Log(title = "物资信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ApiOperation("导出物资信息列表")
@@ -67,7 +65,6 @@ public class AssetController extends BaseController {
     /**
      * 获取物资信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:asset:query')")
     @GetMapping(value = "/{id}")
     @ApiOperation("获取物资信息详细信息")
     public AjaxResultVo<Asset> getInfo(@PathVariable("id") Long id) {
@@ -77,7 +74,6 @@ public class AssetController extends BaseController {
     /**
      * 新增物资信息
      */
-    @PreAuthorize("@ss.hasPermi('system:asset:add')")
     @Log(title = "物资信息", businessType = BusinessType.INSERT)
     @PostMapping
     @ApiOperation("新增物资信息")
@@ -88,7 +84,6 @@ public class AssetController extends BaseController {
     /**
      * 修改物资信息
      */
-    @PreAuthorize("@ss.hasPermi('system:asset:edit')")
     @Log(title = "物资信息", businessType = BusinessType.UPDATE)
     @PutMapping
     @ApiOperation("修改物资信息")
@@ -99,7 +94,6 @@ public class AssetController extends BaseController {
     /**
      * 删除物资信息
      */
-    @PreAuthorize("@ss.hasPermi('system:asset:remove')")
     @Log(title = "物资信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     @ApiOperation("删除物资信息")

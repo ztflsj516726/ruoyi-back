@@ -29,6 +29,9 @@ public class AssetApply extends BaseEntity {
     @ApiModelProperty("申请人id")
     private Long applyUserId;
 
+    @ApiModelProperty("审批人")
+    private Long checkUserId;
+
     @ApiModelProperty("申请所属部门")
     private Long deptId;
 

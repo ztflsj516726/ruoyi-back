@@ -3,6 +3,7 @@ package com.ruoyi.corework.service;
 import com.ruoyi.corework.domain.AssetApply;
 import com.ruoyi.corework.domain.dto.AssetApplySaveDto;
 import com.ruoyi.corework.domain.dto.AssetApplyQueryDto;
+import com.ruoyi.corework.domain.dto.MyTodoQueryDto;
 
 import java.util.List;
 
@@ -30,5 +31,9 @@ public interface IAssetApplyService {
     List<AssetApply> selectAssetList(AssetApplyQueryDto assetApplyQueryDto);
 
     // 提交申请单
-    int submitApply(Long id);
+    int updateStatus(Long id,String type);
+
+    // 查看个人代审批申请单
+    List<AssetApply> selectMyAssetApplyList(MyTodoQueryDto myTodoQueryDto);
+
 }

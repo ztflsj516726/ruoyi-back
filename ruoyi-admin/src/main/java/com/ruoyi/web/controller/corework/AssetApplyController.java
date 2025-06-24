@@ -4,6 +4,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.AjaxResultVo;
 import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.corework.constant.AssetStatus;
 import com.ruoyi.corework.domain.AssetApply;
 import com.ruoyi.corework.domain.dto.AssetApplySaveDto;
 import com.ruoyi.corework.domain.dto.AssetApplyQueryDto;
@@ -68,9 +69,9 @@ public class AssetApplyController extends BaseController {
     @PostMapping("/submit/{id}")
     @ApiOperation("提交申请单")
     public AjaxResult submit(@PathVariable Long id) {
-        if(id == null){
+        if (id == null) {
             return AjaxResult.error("申请单id不能为空");
         }
-        return iAssetApplyService.submitApply(id) > 0 ? AjaxResult.success("提交成功") : AjaxResult.error("提交失败");
+        return iAssetApplyService.updateStatus(id, AssetStatus.PENDING) > 0 ? AjaxResult.success("提交成功") : AjaxResult.error("提交失败");
     }
 }

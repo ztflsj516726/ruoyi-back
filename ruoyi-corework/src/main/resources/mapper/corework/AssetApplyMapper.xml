@@ -6,9 +6,9 @@
 <mapper namespace="com.ruoyi.corework.mapper.AssetApplyMapper">
     <!--  新增  -->
     <insert id="insertAssetApply" useGeneratedKeys="true" keyProperty="id">
-        Insert into asset_apply ( apply_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
+        Insert into asset_apply ( apply_user_id,check_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
         update_time,create_by, update_by)
-        values ( #{applyUserId},#{deptId}, #{applyTime}, #{status}, #{reason},
+        values ( #{applyUserId},#{checkUserId},#{deptId}, #{applyTime}, #{status}, #{reason},
         #{flowId},#{createTime},#{updateTime},#{createBy},#{updateBy})
     </insert>
 
@@ -21,6 +21,9 @@
             </if>
             <if test="reason != null">
                 reason = #{reason},
+            </if>
+            <if test="checkUserId != null">
+                check_user_id = #{checkUserId},
             </if>
         </set>
         <where>
@@ -40,7 +43,7 @@
 
     <!--   详情  -->
     <select id="selectAssetApplyById" resultType="com.ruoyi.corework.domain.AssetApply">
-        select id, apply_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
+        select id, apply_user_id,check_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
         update_time,create_by, update_by
         from asset_apply
         where id = #{id}
@@ -57,6 +60,7 @@
     <resultMap id="AssetApplyResultMap" type="assetApply">
         <id property="id" column="apply_id"/>
         <result property="applyUserId" column="apply_user_id"/>
+        <result property="checkUserId" column="check_user_id"/>
         <result property="deptId" column="dept_id"/>
         <result property="applyTime" column="apply_time"/>
         <result property="status" column="status"/>
@@ -66,7 +70,8 @@
         <result property="createBy" column="create_by"/>
         <result property="updateTime" column="update_time"/>
         <result property="updateBy" column="update_by"/>
-        <collection property="detailList" ofType="com.ruoyi.corework.domain.AssetApplyDetail" resultMap="AssetApplyDetailResultMap"/>
+        <collection property="detailList" ofType="com.ruoyi.corework.domain.AssetApplyDetail"
+                    resultMap="AssetApplyDetailResultMap"/>
     </resultMap>
 
     <!--  列表查询  -->
@@ -74,6 +79,7 @@
         SELECT
         a.id AS apply_id,
         a.apply_user_id,
+        a.check_user_id,
         a.dept_id,
         a.apply_time,
         a.status,
@@ -92,8 +98,10 @@
         FROM asset_apply a
         LEFT JOIN asset_apply_detail d ON a.id = d.apply_id
         <where>
-            <if test="deptId != null "> and dept_id = #{deptId}</if>
-            <if test="status != null "> and status = #{status }</if>
+            <if test="deptId != null ">and dept_id = #{deptId}</if>
+            <if test="status != null ">and status = #{status }</if>
+            <if test="checkUserId != null ">and check_user_id = #{checkUserId }</if>
+            <if test="applyUserId != null ">and apply_user_id = #{applyUserId }</if>
         </where>
     </select>
 </mapper>

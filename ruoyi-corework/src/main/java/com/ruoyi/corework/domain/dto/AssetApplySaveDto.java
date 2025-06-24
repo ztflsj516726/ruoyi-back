@@ -23,6 +23,9 @@ public class AssetApplySaveDto {
     @ApiModelProperty("申请单id")
     private Long id;
 
+    @ApiModelProperty("审批人")
+    private Long checkUserId;
+
     @ApiModelProperty("申领原因")
     private String reason;
 

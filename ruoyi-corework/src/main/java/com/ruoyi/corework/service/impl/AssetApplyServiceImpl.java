@@ -7,6 +7,7 @@ import com.ruoyi.corework.domain.AssetApply;
 import com.ruoyi.corework.domain.AssetApplyDetail;
 import com.ruoyi.corework.domain.dto.AssetApplySaveDto;
 import com.ruoyi.corework.domain.dto.AssetApplyQueryDto;
+import com.ruoyi.corework.domain.dto.MyTodoQueryDto;
 import com.ruoyi.corework.mapper.AssetApplyDetailMapper;
 import com.ruoyi.corework.mapper.AssetApplyMapper;
 import com.ruoyi.corework.service.IAssetApplyService;
@@ -105,17 +106,26 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
 
     @Override
     public List<AssetApply> selectAssetList(AssetApplyQueryDto assetApplyQueryDto) {
+        assetApplyQueryDto.setApplyUserId(SecurityUtils.getUserId());
         return assetApplyMapper.selectAssetApplyList(assetApplyQueryDto);
     }
 
     @Override
     @Transactional
-    public int submitApply(Long id) {
+    public int updateStatus(Long id, String type) {
         AssetApply assetApply = assetApplyMapper.selectAssetApplyById(id);
         if (assetApply == null) {
             throw new RuntimeException("申请单不存在");
         }
-        assetApply.setStatus(AssetStatus.PENDING);
+        assetApply.setStatus(type);
         return assetApplyMapper.updateAssetApply(assetApply);
+    }
+
+    @Override
+    public List<AssetApply> selectMyAssetApplyList(MyTodoQueryDto myTodoQueryDto) {
+        AssetApplyQueryDto assetApplyQueryDto = new AssetApplyQueryDto();
+        BeanUtils.copyProperties(myTodoQueryDto, assetApplyQueryDto);
+        assetApplyQueryDto.setCheckUserId(SecurityUtils.getUserId());
+        return assetApplyMapper.selectAssetApplyList(assetApplyQueryDto);
     }
 }
