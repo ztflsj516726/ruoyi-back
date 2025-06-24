@@ -2,6 +2,7 @@ package com.ruoyi.corework.service.impl;
 
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.corework.constant.AssetStatus;
 import com.ruoyi.corework.domain.AssetApply;
 import com.ruoyi.corework.domain.AssetApplyDetail;
 import com.ruoyi.corework.domain.dto.AssetApplySaveDto;
@@ -43,7 +44,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
         assetApply.setApplyTime(DateUtils.getNowDate());
         assetApply.setApplyUserId(SecurityUtils.getUserId());
         assetApply.setDeptId(SecurityUtils.getDeptId());
-        assetApply.setStatus("draft");
+        assetApply.setStatus(AssetStatus.DRAFT);
         // 插入主表
         assetApplyMapper.insertAssetApply(assetApply);
 
@@ -114,7 +115,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
         if (assetApply == null) {
             throw new RuntimeException("申请单不存在");
         }
-        assetApply.setStatus("pending");
+        assetApply.setStatus(AssetStatus.PENDING);
         return assetApplyMapper.updateAssetApply(assetApply);
     }
 }
