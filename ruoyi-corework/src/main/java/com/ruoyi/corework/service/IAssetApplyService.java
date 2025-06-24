@@ -28,4 +28,7 @@ public interface IAssetApplyService {
     int deleteAssetApplyByIds(Long[] ids);
 
     List<AssetApply> selectAssetList(AssetApplyQueryDto assetApplyQueryDto);
+
+    // 提交申请单
+    int submitApply(Long id);
 }

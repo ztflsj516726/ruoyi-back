@@ -64,4 +64,13 @@ public class AssetApplyController extends BaseController {
     public AjaxResult delete(@RequestBody Long[] ids) {
         return iAssetApplyService.deleteAssetApplyByIds(ids) > 0 ? AjaxResult.success("删除成功") : AjaxResult.error("删除失败");
     }
+
+    @PostMapping("/submit/{id}")
+    @ApiOperation("提交申请单")
+    public AjaxResult submit(@PathVariable Long id) {
+        if(id == null){
+            return AjaxResult.error("申请单id不能为空");
+        }
+        return iAssetApplyService.submitApply(id) > 0 ? AjaxResult.success("提交成功") : AjaxResult.error("提交失败");
+    }
 }

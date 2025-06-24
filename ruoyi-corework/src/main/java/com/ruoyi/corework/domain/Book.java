@@ -44,7 +44,4 @@ public class Book extends BaseEntity implements Serializable  {
     @ApiModelProperty(value = "借阅状态，0=可借，1=已借出", example = "0")
     private String status;
 
-    @ApiModelProperty(value = "备注")
-    private String remark;
-
 }

@@ -60,5 +60,4 @@ public class Asset extends BaseEntity
     @ApiModelProperty(value = "购入日期")
     private Date purchaseDate;
 
-
 }

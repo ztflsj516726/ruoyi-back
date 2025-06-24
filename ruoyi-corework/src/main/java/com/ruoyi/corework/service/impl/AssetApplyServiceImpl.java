@@ -60,7 +60,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
     @Override
     public int updateAssetApply(AssetApplySaveDto assetApplyDto) {
         AssetApply assetApply1 = assetApplyMapper.selectAssetApplyById(assetApplyDto.getId());
-        if(assetApply1 ==null){
+        if (assetApply1 == null) {
             throw new RuntimeException("申请单不存在");
         }
         AssetApply assetApply = new AssetApply();
@@ -105,5 +105,16 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
     @Override
     public List<AssetApply> selectAssetList(AssetApplyQueryDto assetApplyQueryDto) {
         return assetApplyMapper.selectAssetApplyList(assetApplyQueryDto);
+    }
+
+    @Override
+    @Transactional
+    public int submitApply(Long id) {
+        AssetApply assetApply = assetApplyMapper.selectAssetApplyById(id);
+        if (assetApply == null) {
+            throw new RuntimeException("申请单不存在");
+        }
+        assetApply.setStatus("pending");
+        return assetApplyMapper.updateAssetApply(assetApply);
     }
 }
