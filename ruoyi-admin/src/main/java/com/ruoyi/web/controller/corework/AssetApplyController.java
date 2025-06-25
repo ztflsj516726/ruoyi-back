@@ -42,7 +42,6 @@ public class AssetApplyController extends BaseController {
         int result = assetApplyDto.getId() == null
                 ? iAssetApplyService.InsertAssetApply(assetApplyDto)
                 : iAssetApplyService.updateAssetApply(assetApplyDto);
-
         return result > 0 ? AjaxResult.success(operation + "成功") : AjaxResult.error(operation + "失败");
     }
 

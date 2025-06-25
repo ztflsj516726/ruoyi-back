@@ -1,0 +1,25 @@
+package com.ruoyi.corework.service;
+
+import com.ruoyi.corework.domain.AssetOper;
+import com.ruoyi.corework.domain.dto.AssetOperQueryDto;
+
+import java.util.List;
+
+/**
+ * ClassName:IAssetOperService
+ * Package:IntelliJ IDEA
+ * Description:
+ *
+ * @Author ztf
+ * @Create 2025/6/25-16:28
+ * @Version 1.0
+ */
+public interface IAssetOperService {
+
+    // 入库或者报废
+    int InsertAssetOper(AssetOper assetOper);
+
+    //
+    List<AssetOper> selectAssetOperList(AssetOperQueryDto assetOperQueryDto);
+
+}

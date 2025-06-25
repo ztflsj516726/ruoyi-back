@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.common.core.domain.AjaxResultVo;
 import com.ruoyi.corework.domain.Asset;
+import com.ruoyi.corework.domain.dto.AssetApplySaveDto;
 import com.ruoyi.corework.service.IAssetService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,7 +79,9 @@ public class AssetController extends BaseController {
     @Log(title = "物资信息", businessType = BusinessType.INSERT)
     @PostMapping
     @ApiOperation("新增物资信息")
-    public AjaxResult add(@RequestBody Asset asset) {
+    public AjaxResult add(@RequestBody AssetApplySaveDto assetApplySaveDto) {
+        Asset asset = new Asset();
+        BeanUtils.copyProperties(assetApplySaveDto, asset);
         return toAjax(assetService.insertAsset(asset));
     }
 
@@ -87,7 +91,9 @@ public class AssetController extends BaseController {
     @Log(title = "物资信息", businessType = BusinessType.UPDATE)
     @PutMapping
     @ApiOperation("修改物资信息")
-    public AjaxResult edit(@RequestBody Asset asset) {
+    public AjaxResult edit(@RequestBody AssetApplySaveDto assetApplySaveDto) {
+        Asset asset = new Asset();
+        BeanUtils.copyProperties(assetApplySaveDto, asset);
         return toAjax(assetService.updateAsset(asset));
     }
 

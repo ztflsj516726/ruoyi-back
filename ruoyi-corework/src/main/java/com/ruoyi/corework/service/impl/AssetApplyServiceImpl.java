@@ -3,6 +3,7 @@ package com.ruoyi.corework.service.impl;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.corework.constant.AssetStatus;
+import com.ruoyi.corework.domain.Asset;
 import com.ruoyi.corework.domain.AssetApply;
 import com.ruoyi.corework.domain.AssetApplyDetail;
 import com.ruoyi.corework.domain.dto.AssetApplySaveDto;
@@ -10,6 +11,7 @@ import com.ruoyi.corework.domain.dto.AssetApplyQueryDto;
 import com.ruoyi.corework.domain.dto.MyTodoQueryDto;
 import com.ruoyi.corework.mapper.AssetApplyDetailMapper;
 import com.ruoyi.corework.mapper.AssetApplyMapper;
+import com.ruoyi.corework.mapper.AssetMapper;
 import com.ruoyi.corework.service.IAssetApplyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * ClassName:AssetApplyServiceImpl
@@ -35,6 +38,9 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
 
     @Autowired
     private AssetApplyDetailMapper assetApplyDetailMapper;
+
+    @Autowired
+    private AssetMapper assetMapper;
 
     @Override
     public int InsertAssetApply(AssetApplySaveDto assetApplyDto) {
@@ -116,6 +122,33 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
         AssetApply assetApply = assetApplyMapper.selectAssetApplyById(id);
         if (assetApply == null) {
             throw new RuntimeException("申请单不存在");
+        }
+        // 如果是要变成提交变成待审核状态 就需要先腾出来库存
+        if (Objects.equals(type, AssetStatus.PENDING)) {
+            List<AssetApplyDetail> assetApplyDetails = assetApplyDetailMapper.selectAssetApplyByApplyId(id);
+            for (AssetApplyDetail assetApplyDetail : assetApplyDetails) {
+                Asset asset = assetMapper.selectAssetById(assetApplyDetail.getAssetId());
+                if (asset == null) {
+                    throw new RuntimeException("该物资不存在");
+                }
+                if (assetApplyDetail.getCount() > asset.getUsableStock()) {
+                    throw new RuntimeException(asset.getName() + "可用库存不足");
+                }
+                asset.setUsableStock(asset.getUsableStock() - assetApplyDetail.getCount());
+                assetMapper.updateAsset(asset);
+            }
+        }
+
+        if (Objects.equals(type, AssetStatus.REJECTED)) {
+            List<AssetApplyDetail> assetApplyDetails = assetApplyDetailMapper.selectAssetApplyByApplyId(id);
+            for (AssetApplyDetail assetApplyDetail : assetApplyDetails) {
+                Asset asset = assetMapper.selectAssetById(assetApplyDetail.getAssetId());
+                if (asset == null) {
+                    throw new RuntimeException("该物资不存在");
+                }
+                asset.setUsableStock(asset.getUsableStock() + assetApplyDetail.getCount());
+                assetMapper.updateAsset(asset);
+            }
         }
         assetApply.setStatus(type);
         return assetApplyMapper.updateAssetApply(assetApply);

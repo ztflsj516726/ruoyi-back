@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.ruoyi.corework.mapper.AssetOperMapper">
+    <insert id="InsertAssetOper" parameterType="com.ruoyi.corework.domain.AssetOper">
+        insert into asset_oper( asset_id, oper_type, oper_num,create_time,create_by)
+        values( #{assetId}, #{operType}, #{operNum}, #{createTime}, #{createBy})
+    </insert>
+
+    <select id="selectAssetOperList" resultType="com.ruoyi.corework.domain.AssetOper"
+            parameterType="com.ruoyi.corework.domain.dto.AssetOperQueryDto">
+        select id, asset_id, oper_type, oper_num,create_time,create_by
+        from asset_oper
+        <where>
+            <if test="assetId != null ">and asset_id = #{assetId}</if>
+            <if test="operType != null ">and oper_type = #{operType}</if>
+        </where>
+    </select>
+
+</mapper>

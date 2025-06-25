@@ -1,23 +1,26 @@
-package com.ruoyi.corework.domain;
-
-import java.util.Date;
+package com.ruoyi.corework.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.common.annotation.Excel;
+import com.ruoyi.common.core.domain.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import com.ruoyi.common.annotation.Excel;
-import com.ruoyi.common.core.domain.BaseEntity;
+
+import java.util.Date;
 
 /**
- * 物资信息对象 asset
+ * ClassName:AssetSaveDto
+ * Package:IntelliJ IDEA
+ * Description:
  *
- * @author ruoyi
- * @date 2025-06-20
+ * @Author ztf
+ * @Create 2025/6/25-16:09
+ * @Version 1.0
  */
-@ApiModel(description = "物资信息")
 @Data
-public class Asset extends BaseEntity {
+@ApiModel("物资dto")
+public class AssetSaveDto {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -54,19 +57,6 @@ public class Asset extends BaseEntity {
     @ApiModelProperty(value = "单位")
     private String unit;
 
-    /**
-     * 总库存
-     */
-    @Excel(name = "总库存")
-    @ApiModelProperty(value = "总库存")
-    private Long totalStock;
-
-    /**
-     * 可用库存
-     */
-    @Excel(name = "可用库存")
-    @ApiModelProperty(value = "可用库存")
-    private Long usableStock;
 
     /**
      * 购入日期
@@ -75,5 +65,4 @@ public class Asset extends BaseEntity {
     @Excel(name = "购入日期", width = 30, dateFormat = "yyyy-MM-dd")
     @ApiModelProperty(value = "购入日期")
     private Date purchaseDate;
-
 }
