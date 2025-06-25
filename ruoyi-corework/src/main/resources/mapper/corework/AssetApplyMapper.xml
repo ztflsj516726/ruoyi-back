@@ -50,18 +50,19 @@
     </select>
 
 
-    <resultMap id="AssetApplyDetailResultMap" type="assetApplyDetail">
+    <resultMap id="AssetApplyDetailResultMap" type="com.ruoyi.corework.domain.AssetApplyDetail" >
         <id property="id" column="detail_id"/>
         <result property="applyId" column="apply_id"/>
         <result property="assetId" column="asset_id"/>
         <result property="count" column="count"/>
     </resultMap>
 
-    <resultMap id="AssetApplyResultMap" type="assetApply">
+    <resultMap id="AssetApplyResultMap" type="AssetApply">
         <id property="id" column="apply_id"/>
         <result property="applyUserId" column="apply_user_id"/>
         <result property="checkUserId" column="check_user_id"/>
         <result property="deptId" column="dept_id"/>
+        <result property="deptName" column="dept_name"/>
         <result property="applyTime" column="apply_time"/>
         <result property="status" column="status"/>
         <result property="reason" column="reason"/>
@@ -70,7 +71,7 @@
         <result property="createBy" column="create_by"/>
         <result property="updateTime" column="update_time"/>
         <result property="updateBy" column="update_by"/>
-        <collection property="detailList" ofType="com.ruoyi.corework.domain.AssetApplyDetail"
+        <collection property="detailList" ofType="AssetApplyDetail"
                     resultMap="AssetApplyDetailResultMap"/>
     </resultMap>
 
@@ -81,6 +82,7 @@
         a.apply_user_id,
         a.check_user_id,
         a.dept_id,
+        p.dept_name,
         a.apply_time,
         a.status,
         a.reason,
@@ -97,6 +99,7 @@
 
         FROM asset_apply a
         LEFT JOIN asset_apply_detail d ON a.id = d.apply_id
+        LEFT JOIN sys_dept p ON a.dept_id = p.dept_id
         <where>
             <if test="deptId != null ">and dept_id = #{deptId}</if>
             <if test="status != null ">and status = #{status }</if>

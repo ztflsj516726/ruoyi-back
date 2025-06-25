@@ -35,6 +35,9 @@ public class AssetApply extends BaseEntity {
     @ApiModelProperty("申请所属部门")
     private Long deptId;
 
+    @ApiModelProperty("申请所属部门翻译")
+    private String deptName;
+
     @ApiModelProperty("申请时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date applyTime;
