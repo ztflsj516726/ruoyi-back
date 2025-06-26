@@ -1,18 +1,23 @@
 package com.ruoyi.corework.service.impl;
 
+import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.corework.constant.AssetOperStatus;
 import com.ruoyi.corework.constant.AssetStatus;
 import com.ruoyi.corework.domain.Asset;
 import com.ruoyi.corework.domain.AssetApply;
 import com.ruoyi.corework.domain.AssetApplyDetail;
+import com.ruoyi.corework.domain.AssetOper;
 import com.ruoyi.corework.domain.dto.AssetApplySaveDto;
 import com.ruoyi.corework.domain.dto.AssetApplyQueryDto;
 import com.ruoyi.corework.domain.dto.MyTodoQueryDto;
 import com.ruoyi.corework.mapper.AssetApplyDetailMapper;
 import com.ruoyi.corework.mapper.AssetApplyMapper;
 import com.ruoyi.corework.mapper.AssetMapper;
+import com.ruoyi.corework.mapper.AssetOperMapper;
 import com.ruoyi.corework.service.IAssetApplyService;
+import com.ruoyi.system.mapper.SysUserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +47,11 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
     @Autowired
     private AssetMapper assetMapper;
 
+    @Autowired
+    private AssetOperMapper assetOperMapper;
+
+    @Autowired
+    private SysUserMapper sysUserMapper;
     @Override
     public int InsertAssetApply(AssetApplySaveDto assetApplyDto) {
         AssetApply assetApply = new AssetApply();
@@ -139,6 +149,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
             }
         }
 
+        // 拒绝 ：归还借的物品
         if (Objects.equals(type, AssetStatus.REJECTED)) {
             List<AssetApplyDetail> assetApplyDetails = assetApplyDetailMapper.selectAssetApplyByApplyId(id);
             for (AssetApplyDetail assetApplyDetail : assetApplyDetails) {
@@ -150,6 +161,28 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
                 assetMapper.updateAsset(asset);
             }
         }
+        // 同意：产生一条借用记录
+        if(Objects.equals(type, AssetStatus.APPROVED)){
+
+            SysUser sysUser = sysUserMapper.selectUserById(assetApply.getApplyUserId());
+            if(sysUser ==null){
+                throw new RuntimeException("用户不存在");
+            }
+            List<AssetApplyDetail> assetApplyDetails = assetApplyDetailMapper.selectAssetApplyByApplyId(id);
+            for (AssetApplyDetail assetApplyDetail : assetApplyDetails) {
+                Asset asset = assetMapper.selectAssetById(assetApplyDetail.getAssetId());
+                AssetOper assetOper = AssetOper.builder()
+                        .assetId(assetApplyDetail.getAssetId())
+                        .operType(AssetOperStatus.Borrow)
+                        .operNum(assetApplyDetail.getCount())
+                        .afterUseableStock(asset.getUsableStock())
+                        .createBy(sysUser.getNickName())
+                        .createTime(DateUtils.getNowDate())
+                        .build();
+                assetOperMapper.InsertAssetOper(assetOper);
+            }
+        }
+
         assetApply.setStatus(type);
         return assetApplyMapper.updateAssetApply(assetApply);
     }

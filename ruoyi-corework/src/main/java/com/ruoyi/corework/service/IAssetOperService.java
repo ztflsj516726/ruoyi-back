@@ -2,6 +2,7 @@ package com.ruoyi.corework.service;
 
 import com.ruoyi.corework.domain.AssetOper;
 import com.ruoyi.corework.domain.dto.AssetOperQueryDto;
+import com.ruoyi.corework.domain.dto.AssetOperSaveDto;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public interface IAssetOperService {
 
     // 入库或者报废
-    int InsertAssetOper(AssetOper assetOper);
+    int InsertAssetOper(AssetOperSaveDto assetOperSaveDto);
 
     //
     List<AssetOper> selectAssetOperList(AssetOperQueryDto assetOperQueryDto);

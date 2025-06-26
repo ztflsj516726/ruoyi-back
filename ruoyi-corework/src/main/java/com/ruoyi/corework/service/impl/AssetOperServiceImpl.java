@@ -2,12 +2,15 @@ package com.ruoyi.corework.service.impl;
 
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.corework.constant.AssetOperStatus;
 import com.ruoyi.corework.domain.Asset;
 import com.ruoyi.corework.domain.AssetOper;
 import com.ruoyi.corework.domain.dto.AssetOperQueryDto;
+import com.ruoyi.corework.domain.dto.AssetOperSaveDto;
 import com.ruoyi.corework.mapper.AssetMapper;
 import com.ruoyi.corework.mapper.AssetOperMapper;
 import com.ruoyi.corework.service.IAssetOperService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,21 +40,21 @@ public class AssetOperServiceImpl implements IAssetOperService {
 
     @Override
     @Transactional
-    public int InsertAssetOper(AssetOper assetOper) {
-        System.out.println("assetOper666"+assetOper);
-
+    public int InsertAssetOper(AssetOperSaveDto assetOperSaveDto) {
+        AssetOper assetOper =  AssetOper.builder().build();
+        BeanUtils.copyProperties(assetOperSaveDto, assetOper);
         Asset asset = assetMapper.selectAssetById(assetOper.getAssetId());
         if (asset == null) {
             throw new RuntimeException("该物资不存在");
         }
-        if (Objects.equals(assetOper.getOperType(), "in")) {
+        if (Objects.equals(assetOper.getOperType(), AssetOperStatus.In)) {
             Long totalStock = asset.getTotalStock();
             Long usableStock = asset.getUsableStock();
             asset.setTotalStock(totalStock + assetOper.getOperNum());
             asset.setUsableStock(usableStock + assetOper.getOperNum());
-            System.out.println("asset"+asset);
+            System.out.println("asset" + asset);
             assetMapper.updateAsset(asset);
-        } else if (Objects.equals(assetOper.getOperType(), "out")) {
+        } else if (Objects.equals(assetOper.getOperType(), AssetOperStatus.Out)) {
             Long totalStock = asset.getTotalStock();
             Long usableStock = asset.getUsableStock();
             if (usableStock < assetOper.getOperNum()) {
@@ -63,6 +66,7 @@ public class AssetOperServiceImpl implements IAssetOperService {
         }
         assetOper.setCreateTime(DateUtils.getNowDate());
         assetOper.setCreateBy(SecurityUtils.getUsername());
+        assetOper.setAfterUseableStock(asset.getUsableStock());
         return assetOperMapper.InsertAssetOper(assetOper);
     }
 

@@ -26,5 +26,5 @@ public class AssetApplyDetail {
     private Long assetId;
 
     @ApiModelProperty("物资数量")
-    private Integer count;
+    private Long count;
 }

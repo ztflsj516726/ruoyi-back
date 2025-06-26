@@ -26,6 +26,7 @@
                 AND publish_date &lt;= #{endDate}
             </if>
         </where>
+        ORDER BY create_time DESC
     </select>
 
     <!--  新增图书  -->

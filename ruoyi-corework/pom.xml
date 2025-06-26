@@ -28,6 +28,10 @@
             <version>1.6.6</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-system</artifactId>
+        </dependency>
 
     </dependencies>
 

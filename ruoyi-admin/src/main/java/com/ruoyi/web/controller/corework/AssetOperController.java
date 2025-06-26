@@ -5,6 +5,7 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.corework.domain.AssetOper;
 import com.ruoyi.corework.domain.dto.AssetOperQueryDto;
+import com.ruoyi.corework.domain.dto.AssetOperSaveDto;
 import com.ruoyi.corework.service.IAssetOperService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +39,7 @@ public class AssetOperController extends BaseController {
 
     @ApiOperation("入库/报废")
     @PostMapping("/save")
-    public AjaxResult save(@RequestBody AssetOper assetOper) {
-        return assetOperService.InsertAssetOper(assetOper) > 0 ? success() : error();
+    public AjaxResult save(@RequestBody AssetOperSaveDto assetOperSaveDto) {
+        return assetOperService.InsertAssetOper(assetOperSaveDto) > 0 ? success() : error();
     }
 }

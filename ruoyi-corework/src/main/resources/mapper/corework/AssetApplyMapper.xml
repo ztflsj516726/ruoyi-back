@@ -106,5 +106,6 @@
             <if test="checkUserId != null ">and check_user_id = #{checkUserId }</if>
             <if test="applyUserId != null ">and apply_user_id = #{applyUserId }</if>
         </where>
+        ORDER BY create_time DESC
     </select>
 </mapper>
