@@ -42,7 +42,7 @@ public class AssetApply extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date applyTime;
 
-    @ApiModelProperty("申请单状态：draft待提交, pending审批中, approved已通过, rejected驳回")
+    @ApiModelProperty("申请单状态：draft待提交, pending审批中, approved已通过, rejected已驳回,back已归还")
     private String status;
 
     @ApiModelProperty("申领原因")

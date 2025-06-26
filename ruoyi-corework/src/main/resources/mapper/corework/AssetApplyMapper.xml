@@ -50,7 +50,7 @@
     </select>
 
 
-    <resultMap id="AssetApplyDetailResultMap" type="com.ruoyi.corework.domain.AssetApplyDetail" >
+    <resultMap id="AssetApplyDetailResultMap" type="com.ruoyi.corework.domain.AssetApplyDetail">
         <id property="id" column="detail_id"/>
         <result property="applyId" column="apply_id"/>
         <result property="assetId" column="asset_id"/>
@@ -102,9 +102,9 @@
         LEFT JOIN sys_dept p ON a.dept_id = p.dept_id
         <where>
             <if test="deptId != null ">and dept_id = #{deptId}</if>
-            <if test="status != null ">and status = #{status }</if>
-            <if test="checkUserId != null ">and check_user_id = #{checkUserId }</if>
-            <if test="applyUserId != null ">and apply_user_id = #{applyUserId }</if>
+            <if test="status != null ">and a.status = #{status}</if>
+            <if test="checkUserId != null ">and a.check_user_id = #{checkUserId}</if>
+            <if test="applyUserId != null ">and a.apply_user_id = #{applyUserId}</if>
         </where>
         ORDER BY create_time DESC
     </select>

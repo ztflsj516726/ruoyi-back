@@ -149,7 +149,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
             }
         }
 
-        // 拒绝 ：归还借的物品
+        // 拒绝 ：增加物资库存数量
         if (Objects.equals(type, AssetStatus.REJECTED)) {
             List<AssetApplyDetail> assetApplyDetails = assetApplyDetailMapper.selectAssetApplyByApplyId(id);
             for (AssetApplyDetail assetApplyDetail : assetApplyDetails) {
@@ -161,9 +161,31 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
                 assetMapper.updateAsset(asset);
             }
         }
+
+        // 归还：产生归还记录，增加可用库存数量
+        if(Objects.equals(type, AssetStatus.BACK)){
+            SysUser sysUser = sysUserMapper.selectUserById(assetApply.getApplyUserId());
+            List<AssetApplyDetail> assetApplyDetails = assetApplyDetailMapper.selectAssetApplyByApplyId(id);
+            for (AssetApplyDetail assetApplyDetail : assetApplyDetails) {
+                Asset asset = assetMapper.selectAssetById(assetApplyDetail.getAssetId());
+                if (asset == null) {
+                    throw new RuntimeException("该物资不存在");
+                }
+                asset.setUsableStock(asset.getUsableStock() + assetApplyDetail.getCount());
+                assetMapper.updateAsset(asset);
+                AssetOper assetOper = AssetOper.builder()
+                        .assetId(assetApplyDetail.getAssetId())
+                        .operType(AssetOperStatus.BACK)
+                        .operNum(assetApplyDetail.getCount())
+                        .afterUseableStock(asset.getUsableStock())
+                        .createBy(sysUser.getNickName())
+                        .createTime(DateUtils.getNowDate())
+                        .build();
+                assetOperMapper.InsertAssetOper(assetOper);
+            }
+        }
         // 同意：产生一条借用记录
         if(Objects.equals(type, AssetStatus.APPROVED)){
-
             SysUser sysUser = sysUserMapper.selectUserById(assetApply.getApplyUserId());
             if(sysUser ==null){
                 throw new RuntimeException("用户不存在");
@@ -173,7 +195,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
                 Asset asset = assetMapper.selectAssetById(assetApplyDetail.getAssetId());
                 AssetOper assetOper = AssetOper.builder()
                         .assetId(assetApplyDetail.getAssetId())
-                        .operType(AssetOperStatus.Borrow)
+                        .operType(AssetOperStatus.BORROW)
                         .operNum(assetApplyDetail.getCount())
                         .afterUseableStock(asset.getUsableStock())
                         .createBy(sysUser.getNickName())

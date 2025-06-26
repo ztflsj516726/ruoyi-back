@@ -73,4 +73,13 @@ public class AssetApplyController extends BaseController {
         }
         return iAssetApplyService.updateStatus(id, AssetStatus.PENDING) > 0 ? AjaxResult.success("提交成功") : AjaxResult.error("提交失败");
     }
+
+    @PostMapping("/back/{id}")
+    @ApiOperation("归还")
+    public AjaxResult back(@PathVariable Long id) {
+        if (id == null) {
+            return AjaxResult.error("申请单id不能为空");
+        }
+        return iAssetApplyService.updateStatus(id, AssetStatus.BACK) > 0 ? AjaxResult.success("归还成功") : AjaxResult.error("归还失败");
+    }
 }

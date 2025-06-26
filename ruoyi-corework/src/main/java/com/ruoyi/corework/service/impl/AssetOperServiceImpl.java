@@ -47,14 +47,14 @@ public class AssetOperServiceImpl implements IAssetOperService {
         if (asset == null) {
             throw new RuntimeException("该物资不存在");
         }
-        if (Objects.equals(assetOper.getOperType(), AssetOperStatus.In)) {
+        if (Objects.equals(assetOper.getOperType(), AssetOperStatus.IN)) {
             Long totalStock = asset.getTotalStock();
             Long usableStock = asset.getUsableStock();
             asset.setTotalStock(totalStock + assetOper.getOperNum());
             asset.setUsableStock(usableStock + assetOper.getOperNum());
             System.out.println("asset" + asset);
             assetMapper.updateAsset(asset);
-        } else if (Objects.equals(assetOper.getOperType(), AssetOperStatus.Out)) {
+        } else if (Objects.equals(assetOper.getOperType(), AssetOperStatus.OUT)) {
             Long totalStock = asset.getTotalStock();
             Long usableStock = asset.getUsableStock();
             if (usableStock < assetOper.getOperNum()) {

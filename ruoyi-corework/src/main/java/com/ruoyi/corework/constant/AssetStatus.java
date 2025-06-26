@@ -27,4 +27,9 @@ public class AssetStatus {
      * 已驳回
      */
     public static final String REJECTED = "rejected";
+
+    /**
+     * 已归还
+     */
+    public static final String BACK = "back";
 }
