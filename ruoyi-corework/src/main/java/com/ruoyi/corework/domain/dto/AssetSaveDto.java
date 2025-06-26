@@ -57,6 +57,13 @@ public class AssetSaveDto {
     @ApiModelProperty(value = "单位")
     private String unit;
 
+    /**
+     * 可用库存
+     */
+    @Excel(name = "库存告警阈值")
+    @ApiModelProperty(value = "库存告警阈值")
+    private Long minThreshold;
+
 
     /**
      * 购入日期
@@ -66,7 +73,9 @@ public class AssetSaveDto {
     @ApiModelProperty(value = "购入日期")
     private Date purchaseDate;
 
-    /** 备注 */
+    /**
+     * 备注
+     */
     @ApiModelProperty("备注")
     private String remark;
 

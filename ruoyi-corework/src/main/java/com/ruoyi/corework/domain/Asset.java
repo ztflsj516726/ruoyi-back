@@ -69,6 +69,13 @@ public class Asset extends BaseEntity {
     private Long usableStock;
 
     /**
+     * 可用库存
+     */
+    @Excel(name = "库存告警阈值")
+    @ApiModelProperty(value = "库存告警阈值")
+    private Long minThreshold;
+
+    /**
      * 购入日期
      */
     @JsonFormat(pattern = "yyyy-MM-dd")

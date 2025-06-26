@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="unit"    column="unit"    />
         <result property="totalStock"    column="total_stock"    />
         <result property="usableStock"    column="usable_stock"    />
+        <result property="minThreshold"    column="min_threshold"    />
         <result property="purchaseDate"    column="purchase_date"    />
         <result property="remark"    column="remark"    />
         <result property="createTime"    column="create_time"    />
@@ -19,7 +20,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectAssetVo">
-        select id, name, category, model, unit, total_stock, usable_stock, purchase_date, remark, create_time, update_time
+        select id,
+               name,
+               category,
+               model,
+               unit,
+               total_stock,
+               usable_stock,
+               min_threshold,
+               purchase_date,
+               remark,
+               create_time,
+               update_time
         from asset
     </sql>
 
@@ -32,6 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
             <if test="totalStock != null "> and total_stock = #{totalStock}</if>
             <if test="usableStock != null "> and usable_stock = #{usableStock}</if>
+            <if test="minThreshold != null "> and min_threshold = #{minThreshold}</if>
             <if test="purchaseDate != null "> and purchase_date = #{purchaseDate}</if>
         </where>
         ORDER BY create_time DESC
@@ -51,6 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unit != null">unit,</if>
             <if test="totalStock != null">total_stock,</if>
             <if test="usableStock != null">usable_stock,</if>
+            <if test="minThreshold != null">min_threshold,</if>
             <if test="purchaseDate != null">purchase_date,</if>
             <if test="remark != null">remark,</if>
             <if test="createTime != null">create_time,</if>
@@ -63,6 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unit != null">#{unit},</if>
             <if test="totalStock != null">#{totalStock},</if>
             <if test="usableStock != null">#{usableStock},</if>
+            <if test="minThreshold != null">#{minThreshold},</if>
             <if test="purchaseDate != null">#{purchaseDate},</if>
             <if test="remark != null">#{remark},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -79,6 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="unit != null">unit = #{unit},</if>
             <if test="totalStock != null">total_stock = #{totalStock},</if>
             <if test="usableStock != null">usable_stock = #{usableStock},</if>
+            <if test="minThreshold != null">min_threshold = #{minThreshold},</if>
             <if test="purchaseDate != null">purchase_date = #{purchaseDate},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
