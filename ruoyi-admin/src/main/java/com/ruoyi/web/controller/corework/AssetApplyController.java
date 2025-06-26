@@ -37,17 +37,17 @@ public class AssetApplyController extends BaseController {
 
     @PostMapping("/applySave")
     @ApiOperation("物资申请单新增/修改")
-    public AjaxResult apply(@RequestBody AssetApplySaveDto assetApplyDto) {
-        String operation = assetApplyDto.getId() == null ? "新增" : "修改";
-        int result = assetApplyDto.getId() == null
-                ? iAssetApplyService.InsertAssetApply(assetApplyDto)
-                : iAssetApplyService.updateAssetApply(assetApplyDto);
+    public AjaxResult apply(@RequestBody AssetApplySaveDto assetApplySaveDto) {
+        String operation = assetApplySaveDto.getId() == null ? "新增" : "修改";
+        int result = assetApplySaveDto.getId() == null
+                ? iAssetApplyService.InsertAssetApply(assetApplySaveDto)
+                : iAssetApplyService.updateAssetApply(assetApplySaveDto);
         return result > 0 ? AjaxResult.success(operation + "成功") : AjaxResult.error(operation + "失败");
     }
 
     @GetMapping("/list")
     @ApiOperation("物资申请列表")
-    public TableDataInfo<AssetApply> apply(AssetApplyQueryDto assetApplyQueryDto) {
+    public TableDataInfo<AssetApply> list(AssetApplyQueryDto assetApplyQueryDto) {
         startPage();
         List<AssetApply> list = iAssetApplyService.selectAssetList(assetApplyQueryDto);
         return getDataTable(list);

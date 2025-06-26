@@ -65,4 +65,9 @@ public class AssetSaveDto {
     @Excel(name = "购入日期", width = 30, dateFormat = "yyyy-MM-dd")
     @ApiModelProperty(value = "购入日期")
     private Date purchaseDate;
+
+    /** 备注 */
+    @ApiModelProperty("备注")
+    private String remark;
+
 }

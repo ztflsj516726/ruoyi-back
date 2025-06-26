@@ -66,6 +66,7 @@ public class AssetServiceImpl implements IAssetService {
     public int updateAsset(Asset asset) {
         asset.setUpdateTime(DateUtils.getNowDate());
         asset.setUpdateBy(SecurityUtils.getUsername());
+        System.out.println("更新"+asset);
         return assetMapper.updateAsset(asset);
     }
 
