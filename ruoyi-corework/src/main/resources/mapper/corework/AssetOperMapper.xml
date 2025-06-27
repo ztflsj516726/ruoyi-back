@@ -20,4 +20,17 @@
         ORDER BY create_time DESC
     </select>
 
+
+    <select id="selectAssetOperByDay" resultType="map">
+        SELECT
+        DATE_FORMAT(create_time, '%Y-%m-%d') AS day,
+        SUM(CASE WHEN oper_type = 'in' THEN oper_num ELSE 0 END) AS total_in,
+        SUM(CASE WHEN oper_type = 'out' THEN oper_num ELSE 0 END) AS total_out
+        FROM asset_oper
+        WHERE create_time BETWEEN #{startDate} AND #{endDate}
+        GROUP BY day
+        ORDER BY day ASC
+
+    </select>
+
 </mapper>

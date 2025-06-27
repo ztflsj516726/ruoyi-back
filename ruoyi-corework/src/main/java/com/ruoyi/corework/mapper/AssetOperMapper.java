@@ -2,9 +2,12 @@ package com.ruoyi.corework.mapper;
 
 import com.ruoyi.corework.domain.AssetOper;
 import com.ruoyi.corework.domain.dto.AssetOperQueryDto;
+import com.ruoyi.corework.domain.dto.AssetOperStatDto;
+import com.ruoyi.corework.domain.vo.AssetOperStatDayVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ClassName:AssetOperMapper
@@ -23,4 +26,6 @@ public interface AssetOperMapper {
 
 
     List<AssetOper> selectAssetOperList(AssetOperQueryDto assetOperQueryDto);
+
+    List<Map<String, Object>> selectAssetOperByDay(AssetOperStatDto assetOperStatDto);
 }
