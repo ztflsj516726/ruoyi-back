@@ -15,4 +15,12 @@
     <select id="selectAssetApplyByApplyId" resultType="com.ruoyi.corework.domain.AssetApplyDetail">
         SELECT * FROM asset_apply_detail WHERE apply_id = #{applyId}
     </select>
+    <select id="selectAssetApplyDetailByAssetId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM asset_apply_detail
+        <where>
+            <if test="assetId != null and assetId!=''">
+                and asset_id = #{assetId}
+            </if>
+        </where>
+    </select>
 </mapper>

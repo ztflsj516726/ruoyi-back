@@ -20,4 +20,7 @@ public interface AssetApplyDetailMapper {
     int insertAssetApplyDetails(List<AssetApplyDetail> assetApplyDetailList);
 
     List<AssetApplyDetail> selectAssetApplyByApplyId(Long applyId);
+
+    // 查询物资是否有绑定的申请单
+    int selectAssetApplyDetailByAssetId(Long assetId);
 }

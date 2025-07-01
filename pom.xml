@@ -229,6 +229,8 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
+
+
         </dependencies>
     </dependencyManagement>
 

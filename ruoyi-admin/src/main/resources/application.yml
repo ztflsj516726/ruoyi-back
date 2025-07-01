@@ -47,6 +47,18 @@ user:
 
 # Spring配置
 spring:
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: 821477928@qq.com
+    password: qgbamwxeotpqbbgh
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
   # 资源信息
   messages:
     # 国际化资源文件路径
@@ -106,7 +118,7 @@ mybatis:
   # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
   configuration:
-  # 开启驼峰命名
+    # 开启驼峰命名
     map-underscore-to-camel-case: true
 
 # PageHelper分页插件

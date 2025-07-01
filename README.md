@@ -27,7 +27,7 @@
 
 | 前端 | 后端 | 数据库 | 工具 |
 | ---- | ---- | ------ | ---- |
-| Vue 3  |   Spring Boot | MySQL  | Docker s |
+| Vue 3  |   Spring Boot | MySQL  | Docker `s |
 
 ---
 

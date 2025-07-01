@@ -5,10 +5,15 @@ import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.corework.domain.Asset;
+import com.ruoyi.corework.mapper.AssetApplyDetailMapper;
+import com.ruoyi.corework.mapper.AssetApplyMapper;
 import com.ruoyi.corework.mapper.AssetMapper;
 import com.ruoyi.corework.service.IAssetService;
+import com.ruoyi.system.domain.SysNotice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 物资信息Service业务层处理
@@ -20,6 +25,9 @@ import org.springframework.stereotype.Service;
 public class AssetServiceImpl implements IAssetService {
     @Autowired
     private AssetMapper assetMapper;
+
+    @Autowired
+    private AssetApplyDetailMapper assetApplyDetailMapper;
 
     /**
      * 查询物资信息
@@ -66,7 +74,7 @@ public class AssetServiceImpl implements IAssetService {
     public int updateAsset(Asset asset) {
         asset.setUpdateTime(DateUtils.getNowDate());
         asset.setUpdateBy(SecurityUtils.getUsername());
-        System.out.println("更新"+asset);
+        System.out.println("更新" + asset);
         return assetMapper.updateAsset(asset);
     }
 
@@ -78,6 +86,14 @@ public class AssetServiceImpl implements IAssetService {
      */
     @Override
     public int deleteAssetByIds(Long[] ids) {
+        for (Long id : ids) {
+            int num = assetApplyDetailMapper.selectAssetApplyDetailByAssetId(id);
+            // 该物资存在关联申请单
+            if (num > 0) {
+                Asset asset = assetMapper.selectAssetById(id);
+                throw new RuntimeException(asset.getName() + "存在相关联申请单");
+            }
+        }
         return assetMapper.deleteAssetByIds(ids);
     }
 
@@ -89,6 +105,13 @@ public class AssetServiceImpl implements IAssetService {
      */
     @Override
     public int deleteAssetById(Long id) {
+        int num = assetApplyDetailMapper.selectAssetApplyDetailByAssetId(id);
+        // 该物资存在关联申请单
+        if (num > 0) {
+            Asset asset = assetMapper.selectAssetById(id);
+            throw new RuntimeException(asset.getName() + "存在相关联申请单");
+
+        }
         return assetMapper.deleteAssetById(id);
     }
 }
