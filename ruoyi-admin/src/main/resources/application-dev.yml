@@ -1,7 +1,7 @@
 # 项目相关配置
 ruoyi:
   # 生产环境上传路径，覆盖开发环境路径
-  profile: /root/data/ruoyi/ruoyi-back/uploadPath
+  profile: D:/ruoyi/uploadPath
 # 生产环境配置
 server:
   # 端口（如果和开发端口相同，可不写）
@@ -23,7 +23,7 @@ logging:
 # Redis 覆盖生产环境地址
 spring:
   redis:
-    host: 47.108.195.148
+    host: localhost
     port: 6379
     database: 0
     password:
@@ -40,7 +40,7 @@ spring:
     druid:
       # 主库数据源
       master:
-        url: jdbc:mysql://47.108.195.148:3307/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://10.0.0.158:3306/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
         password: Zhimeilideni990
       # 从库数据源
