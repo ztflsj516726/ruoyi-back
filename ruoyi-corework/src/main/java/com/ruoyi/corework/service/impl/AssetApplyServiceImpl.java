@@ -2,7 +2,6 @@ package com.ruoyi.corework.service.impl;
 
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.utils.DateUtils;
-import com.ruoyi.common.utils.EmailUtil;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.corework.constant.AssetOperStatus;
 import com.ruoyi.corework.constant.AssetStatus;
@@ -21,7 +20,6 @@ import com.ruoyi.corework.service.IAssetApplyService;
 import com.ruoyi.system.mapper.SysUserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +55,8 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
     private SysUserMapper sysUserMapper;
 
     @Autowired
-    private JavaMailSender mailSender;
+    private  NotificationService notificationService;
+
     @Override
     public int InsertAssetApply(AssetApplySaveDto assetApplyDto) {
         AssetApply assetApply = new AssetApply();
@@ -156,8 +155,8 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
                 assetMapper.updateAsset(asset);
             }
         }
+        // 获取申请用户信息
         SysUser sysUser = sysUserMapper.selectUserById(assetApply.getApplyUserId());
-
         // 拒绝 ：增加物资库存数量
         if (Objects.equals(type, AssetStatus.REJECTED)) {
             List<AssetApplyDetail> assetApplyDetails = assetApplyDetailMapper.selectAssetApplyByApplyId(id);
@@ -169,7 +168,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
                 asset.setUsableStock(asset.getUsableStock() + assetApplyDetail.getCount());
                 assetMapper.updateAsset(asset);
             }
-            EmailUtil.sendApproveMail(sysUser.getEmail(), "资产申请单审核结果", "资产申请单审核结果：" + (Objects.equals(type, AssetStatus.APPROVED) ? "通过" : "未通过"));
+            notificationService.sendApproveMail(sysUser.getEmail(), "资产申请单审核结果", "资产申请单审核结果：您的审批已被拒绝" );
         }
 
         // 归还：产生归还记录，增加可用库存数量
@@ -192,7 +191,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
                         .build();
                 assetOperMapper.InsertAssetOper(assetOper);
             }
-            EmailUtil.sendApproveMail(sysUser.getEmail(), "资产归还", "资产归还");
+            notificationService.sendApproveMail("821477928@qq.com", "资产归还", "资产已经归还");
         }
         // 同意：产生一条借用记录
         if(Objects.equals(type, AssetStatus.APPROVED)){
@@ -212,7 +211,7 @@ public class AssetApplyServiceImpl implements IAssetApplyService {
                         .build();
                 assetOperMapper.InsertAssetOper(assetOper);
             }
-            EmailUtil.sendApproveMail(sysUser.getEmail(), "资产申请单审核结果", "资产申请单审核结果：" + (Objects.equals(type, AssetStatus.APPROVED) ? "通过" : "未通过"));
+            notificationService.sendApproveMail(sysUser.getEmail(), "资产申请单审核结果", "资产申请单审核结果：您的资产申请已通过" );
         }
         assetApply.setStatus(type);
         return assetApplyMapper.updateAssetApply(assetApply);
