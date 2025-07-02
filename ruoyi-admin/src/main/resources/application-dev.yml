@@ -7,7 +7,7 @@ server:
   # 端口（如果和开发端口相同，可不写）
   port: 8080
   servlet:
-    context-path: /dev-api
+    context-path: /
   tomcat:
     uri-encoding: UTF-8
     accept-count: 1000
