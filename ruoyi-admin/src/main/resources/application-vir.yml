@@ -1,8 +1,8 @@
 # 项目相关配置
 ruoyi:
-  name: ruoyi测试环境
+  name: ruoyi虚拟机环境
   # 生产环境上传路径，覆盖开发环境路径
-  profile: D:/ruoyi/uploadPath
+  profile: /root/data/ruoyi/ruoyi-back/uploadPath
 # 生产环境配置
 server:
   # 端口（如果和开发端口相同，可不写）
@@ -24,7 +24,7 @@ logging:
 # Redis 覆盖生产环境地址
 spring:
   redis:
-    host: localhost
+    host: 10.0.0.158
     port: 6379
     database: 0
     password:

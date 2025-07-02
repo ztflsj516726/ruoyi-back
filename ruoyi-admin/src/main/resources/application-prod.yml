@@ -1,5 +1,6 @@
 # 项目相关配置
 ruoyi:
+  name: ruoyi服务器环境
   # 生产环境上传路径，覆盖开发环境路径
   profile: /root/data/ruoyi/ruoyi-back/uploadPath
 # 生产环境配置
