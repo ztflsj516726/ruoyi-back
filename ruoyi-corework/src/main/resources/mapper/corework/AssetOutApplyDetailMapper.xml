@@ -3,20 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
-<mapper namespace="com.ruoyi.corework.mapper.AssetApplyDetailMapper">
+<mapper namespace="com.ruoyi.corework.mapper.AssetOutApplyDetailMapper">
 
-    <insert id="insertAssetApplyDetails" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO asset_apply_detail(apply_id, asset_id, count)
+    <insert id="InsertAssetOutApplyDetails" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO asset_apply_out_detail(apply_id, asset_id, count)
         VALUES
         <foreach collection="list" item="item" separator=",">
             (#{item.applyId}, #{item.assetId}, #{item.count})
         </foreach>
     </insert>
-    <select id="selectAssetApplyByApplyId" resultType="com.ruoyi.corework.domain.AssetApplyDetail">
-        SELECT * FROM asset_apply_detail WHERE apply_id = #{applyId}
+    <select id="selectAssetApplyByApplyId" resultType="com.ruoyi.corework.domain.AssetOutApplyDetail">
+        SELECT * FROM asset_apply_out_detail WHERE apply_id = #{applyId}
     </select>
     <select id="selectAssetApplyDetailByAssetId" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM asset_apply_detail
+        SELECT COUNT(*) FROM asset_apply_out_detail
         <where>
             <if test="assetId != null and assetId!=''">
                 and asset_id = #{assetId}

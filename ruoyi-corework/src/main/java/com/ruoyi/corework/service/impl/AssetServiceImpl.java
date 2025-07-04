@@ -5,15 +5,11 @@ import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.corework.domain.Asset;
-import com.ruoyi.corework.mapper.AssetApplyDetailMapper;
-import com.ruoyi.corework.mapper.AssetApplyMapper;
+import com.ruoyi.corework.mapper.AssetOutApplyDetailMapper;
 import com.ruoyi.corework.mapper.AssetMapper;
 import com.ruoyi.corework.service.IAssetService;
-import com.ruoyi.system.domain.SysNotice;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 物资信息Service业务层处理
@@ -27,7 +23,7 @@ public class AssetServiceImpl implements IAssetService {
     private AssetMapper assetMapper;
 
     @Autowired
-    private AssetApplyDetailMapper assetApplyDetailMapper;
+    private AssetOutApplyDetailMapper assetOutApplyDetailMapper;
 
     /**
      * 查询物资信息
@@ -87,7 +83,7 @@ public class AssetServiceImpl implements IAssetService {
     @Override
     public int deleteAssetByIds(Long[] ids) {
         for (Long id : ids) {
-            int num = assetApplyDetailMapper.selectAssetApplyDetailByAssetId(id);
+            int num = assetOutApplyDetailMapper.selectAssetApplyDetailByAssetId(id);
             // 该物资存在关联申请单
             if (num > 0) {
                 Asset asset = assetMapper.selectAssetById(id);
@@ -105,7 +101,7 @@ public class AssetServiceImpl implements IAssetService {
      */
     @Override
     public int deleteAssetById(Long id) {
-        int num = assetApplyDetailMapper.selectAssetApplyDetailByAssetId(id);
+        int num = assetOutApplyDetailMapper.selectAssetApplyDetailByAssetId(id);
         // 该物资存在关联申请单
         if (num > 0) {
             Asset asset = assetMapper.selectAssetById(id);

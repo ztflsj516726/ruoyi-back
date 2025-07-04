@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * ClassName:AssetApplyDetail
+ * ClassName:AssetOutApplyDetail
  * Package:IntelliJ IDEA
  * Description:
  *
@@ -14,8 +14,8 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-@ApiModel(description = "申请物资信息")
-public class AssetApplyDetail {
+@ApiModel("出库申请单明细")
+public class AssetOutApplyDetail {
     @ApiModelProperty("申请物资信息主键id")
     private Long id;
 

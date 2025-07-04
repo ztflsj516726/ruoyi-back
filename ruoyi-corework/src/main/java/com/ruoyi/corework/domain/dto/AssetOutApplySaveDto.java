@@ -1,6 +1,6 @@
 package com.ruoyi.corework.domain.dto;
 
-import com.ruoyi.corework.domain.AssetApplyDetail;
+import com.ruoyi.corework.domain.AssetOutApplyDetail;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * ClassName:AssetApplySaveDto
+ * ClassName:AssetOutApplySaveDto
  * Package:IntelliJ IDEA
  * Description:
  *
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @ApiModel("申请单新增")
 @Data
-public class AssetApplySaveDto {
+public class AssetOutApplySaveDto {
 
     @ApiModelProperty("申请单id")
     private Long id;
@@ -30,5 +30,5 @@ public class AssetApplySaveDto {
     private String reason;
 
     @ApiModelProperty("申领物资列表")
-    private List<AssetApplyDetail> detailList; // 子表数据
+    private List<AssetOutApplyDetail> detailList; // 子表数据
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * ClassName:IAssetApplyService
+ * ClassName:IAssetOutApplyService
  * Package:IntelliJ IDEA
  * Description:
  * 申请单
@@ -20,8 +20,8 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
-@ApiModel(description = "申请单")
-public class AssetApply extends BaseEntity {
+@ApiModel("出库申请单")
+public class AssetOutApply extends BaseEntity {
 
     @ApiModelProperty("申请单id")
     private Long id;
@@ -52,5 +52,5 @@ public class AssetApply extends BaseEntity {
     private String flowId;
 
     @ApiModelProperty("申请物资列表")
-    private List<AssetApplyDetail> detailList; // 子表数据
+    private List<AssetOutApplyDetail> detailList; // 子表数据
 }

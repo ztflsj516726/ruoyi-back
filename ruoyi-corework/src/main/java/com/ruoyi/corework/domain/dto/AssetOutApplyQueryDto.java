@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * ClassName:AssetApplyQueryDto
+ * ClassName:AssetOutApplyQueryDto
  * Package:IntelliJ IDEA
  * Description:
  *
@@ -13,7 +13,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
-public class AssetApplyQueryDto {
+public class AssetOutApplyQueryDto {
 
     @ApiModelProperty(value = "页码")
     private Integer pageNum;

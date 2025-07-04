@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.ruoyi.corework.mapper.AssetInApplyMapper">
+
+    <insert id="InsertAssetOutApply" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO asset_apply_in(apply_code, apply_title, warehouse_id, supplier_id, status, total_amount, remark,
+        create_by, create_time, update_by, update_time)
+        VALUES (#{applyCode}, #{applyTitle}, #{warehouseId}, #{supplierId}, #{status}, #{totalAmount}, #{remark},
+        #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+    <update id="updateAssetOutApply">
+        UPDATE asset_apply_in
+        <set>
+            <if test="applyTitle != null">
+                apply_title = #{applyTitle},
+            </if>
+            <if test="warehouseId != null">
+                warehouse_id = #{warehouseId},
+            </if>
+            <if test="supplierId != null">
+                supplier_id = #{supplierId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="totalAmount != null">
+                total_amount = #{totalAmount},
+            </if>
+            <if test="remark != remark">
+                remark = #{remark},
+            </if>
+            <if test="updateBy != updateBy">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != updateTime">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <select id="selectAssetApplyList" resultType="com.ruoyi.corework.domain.AssetInApply">
+        SELECT * FROM asset_apply_in
+        <where>
+            <if test="applyCode != null and applyCode != ''">
+                AND apply_code = #{applyCode}
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="selectAssetInApplyById" resultType="com.ruoyi.corework.domain.AssetInApply">
+        SELECT * FROM asset_apply_in
+        WHERE id = #{id}
+        ORDER BY create_time DESC
+    </select>
+</mapper>

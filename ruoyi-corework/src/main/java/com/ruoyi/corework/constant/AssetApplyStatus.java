@@ -1,7 +1,7 @@
 package com.ruoyi.corework.constant;
 
 /**
- * ClassName:AssetStatus
+ * ClassName:AssetApplyStatus
  * Package:IntelliJ IDEA
  * Description:
  * 申请状态枚举类
@@ -10,7 +10,7 @@ package com.ruoyi.corework.constant;
  * @Create 2025/6/24-14:09
  * @Version 1.0
  */
-public class AssetStatus {
+public class AssetApplyStatus {
     /**
      * 待提交
      */

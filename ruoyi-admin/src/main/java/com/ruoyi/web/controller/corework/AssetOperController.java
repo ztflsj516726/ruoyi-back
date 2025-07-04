@@ -1,12 +1,10 @@
 package com.ruoyi.web.controller.corework;
 
 import com.ruoyi.common.core.controller.BaseController;
-import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.AjaxResultVo;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.corework.domain.AssetOper;
 import com.ruoyi.corework.domain.dto.AssetOperQueryDto;
-import com.ruoyi.corework.domain.dto.AssetOperSaveDto;
 import com.ruoyi.corework.domain.dto.AssetOperStatDto;
 import com.ruoyi.corework.domain.vo.AssetOperStatDayVo;
 import com.ruoyi.corework.service.IAssetOperService;
@@ -38,12 +36,6 @@ public class AssetOperController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo<AssetOper> list(AssetOperQueryDto assetOperQueryDto) {
         return getDataTable(assetOperService.selectAssetOperList(assetOperQueryDto));
-    }
-
-    @ApiOperation("入库/报废")
-    @PostMapping("/save")
-    public AjaxResult save(@RequestBody AssetOperSaveDto assetOperSaveDto) {
-        return assetOperService.InsertAssetOper(assetOperSaveDto) > 0 ? success() : error();
     }
 
     @ApiOperation("统计出入库数量(天)")

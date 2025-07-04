@@ -1,12 +1,12 @@
 package com.ruoyi.corework.mapper;
 
-import com.ruoyi.corework.domain.AssetApplyDetail;
+import com.ruoyi.corework.domain.AssetOutApplyDetail;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 /**
- * ClassName:AssetApplyDetailMapper
+ * ClassName:AssetOutApplyDetailMapper
  * Package:IntelliJ IDEA
  * Description:
  *
@@ -15,11 +15,11 @@ import java.util.List;
  * @Version 1.0
  */
 @Mapper
-public interface AssetApplyDetailMapper {
+public interface AssetOutApplyDetailMapper {
 
-    int insertAssetApplyDetails(List<AssetApplyDetail> assetApplyDetailList);
+    int InsertAssetOutApplyDetails(List<AssetOutApplyDetail> assetOutApplyDetailList);
 
-    List<AssetApplyDetail> selectAssetApplyByApplyId(Long applyId);
+    List<AssetOutApplyDetail> selectAssetApplyByApplyId(Long applyId);
 
     // 查询物资是否有绑定的申请单
     int selectAssetApplyDetailByAssetId(Long assetId);

@@ -1,11 +1,8 @@
 package com.ruoyi.corework.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ruoyi.common.core.domain.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -32,21 +29,38 @@ public class AssetOper {
     @ApiModelProperty("物资id")
     private Long assetId;
 
+    @ApiModelProperty("申请单id")
+    private Long applyId;
+
+    @ApiModelProperty("批次id")
+    private Long batchId;
+
+    @ApiModelProperty("仓库id")
+    private Long warehouseId;
+
     @ApiModelProperty("操作类型：入库in 报废out 借用borrow")
     private String operType;
 
     @ApiModelProperty("操作数量")
     private Long operNum;
 
-    @ApiModelProperty("当前可用库存")
+    @ApiModelProperty("操作前可用库存")
+    private Long beforeUseableStock;
+
+    @ApiModelProperty("操作后可用库存")
     private Long afterUseableStock;
+
+    @ApiModelProperty("备注")
+    private String remark;
+
+    @ApiModelProperty("创建人")
+    private String createBy;
 
     @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
-    @ApiModelProperty("创建人")
-    private String createBy;
+
 
 
 

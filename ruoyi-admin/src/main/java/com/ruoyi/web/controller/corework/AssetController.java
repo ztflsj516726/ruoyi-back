@@ -6,13 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.common.core.domain.AjaxResultVo;
 import com.ruoyi.corework.domain.Asset;
-import com.ruoyi.corework.domain.dto.AssetApplySaveDto;
 import com.ruoyi.corework.domain.dto.AssetSaveDto;
 import com.ruoyi.corework.service.IAssetService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
