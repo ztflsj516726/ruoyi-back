@@ -19,15 +19,15 @@ import java.util.List;
 @Mapper
 public interface AssetInApplyMapper {
 
-    int InsertAssetOutApply(AssetInApply assetInApply);
+    int InsertAssetInApply(AssetInApply assetInApply);
 
-    List<AssetInApply> selectAssetApplyList(AssetInApplyQueryDto assetInApplyQueryDto);
+    List<AssetInApply> selectAssetApplyInList(AssetInApplyQueryDto assetInApplyQueryDto);
 
     AssetInApply selectAssetInApplyById(Long id);
 
-    int updateAssetOutApply(AssetInApply assetInApply);
+    int updateAssetInApply(AssetInApply assetInApply);
 
-    int deleteAssetOutApplyByIds(Long[] ids);
+    int deleteAssetInApplyByIds(Long[] ids);
 
     int updateStatus(@Param("id") Long id,@Param("status") String status);
 

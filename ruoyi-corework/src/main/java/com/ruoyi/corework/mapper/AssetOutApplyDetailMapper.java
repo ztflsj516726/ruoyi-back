@@ -17,7 +17,7 @@ import java.util.List;
 @Mapper
 public interface AssetOutApplyDetailMapper {
 
-    int InsertAssetOutApplyDetails(List<AssetOutApplyDetail> assetOutApplyDetailList);
+    int InsertAssetInApplyDetails(List<AssetOutApplyDetail> assetOutApplyDetailList);
 
     List<AssetOutApplyDetail> selectAssetApplyByApplyId(Long applyId);
 

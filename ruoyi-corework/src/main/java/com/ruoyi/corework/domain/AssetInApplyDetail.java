@@ -37,7 +37,7 @@ public class AssetInApplyDetail {
     private String assetUnit;
 
     @ApiModelProperty(value = "入库数量", required = true)
-    private Integer quantity;
+    private Integer count;
 
     @ApiModelProperty(value = "单价")
     private BigDecimal unitPrice;

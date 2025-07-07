@@ -5,7 +5,7 @@
 <!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
 <mapper namespace="com.ruoyi.corework.mapper.AssetOutApplyMapper">
     <!--  新增  -->
-    <insert id="InsertAssetOutApply" useGeneratedKeys="true" keyProperty="id">
+    <insert id="InsertAssetInApply" useGeneratedKeys="true" keyProperty="id">
         Insert into asset_apply_out ( apply_user_id,check_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
         update_time,create_by, update_by)
         values ( #{applyUserId},#{checkUserId},#{deptId}, #{applyTime}, #{status}, #{reason},
@@ -13,7 +13,7 @@
     </insert>
 
     <!--   主表更新  -->
-    <update id="updateAssetOutApply">
+    <update id="updateAssetInApply">
         update asset_apply_out
         <set>
             <if test="status != null">
@@ -35,7 +35,7 @@
         delete from asset_apply_out_detail where apply_id = #{id}
     </delete>
 
-    <delete id="deleteAssetOutApplyByIds">
+    <delete id="deleteAssetInApplyByIds">
         delete from asset_apply_out where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
@@ -77,7 +77,7 @@
     </resultMap>
 
     <!--  列表查询  -->
-    <select id="selectAssetApplyList" resultMap="AssetApplyResultMap">
+    <select id="selectAssetApplyInList" resultMap="AssetApplyResultMap">
         SELECT
         a.id AS apply_id,
         a.apply_user_id,

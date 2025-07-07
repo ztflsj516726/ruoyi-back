@@ -54,7 +54,7 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
         assetInApply.setApplyCode(generateApplyCode());
         // 设置状态为草稿
         assetInApply.setStatus(AssetApplyStatus.DRAFT);
-        int rows = assetInApplyMapper.InsertAssetOutApply(assetInApply);
+        int rows = assetInApplyMapper.InsertAssetInApply(assetInApply);
 
         for (AssetInApplyDetail detail : assetInApplySaveDto.getDetailList()) {
             detail.setApplyId(assetInApply.getId());
@@ -66,7 +66,7 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
 
     @Override
     public List<AssetInApply> selectAssetList(AssetInApplyQueryDto assetInApplyQueryDto) {
-        return assetInApplyMapper.selectAssetApplyList(assetInApplyQueryDto);
+        return assetInApplyMapper.selectAssetApplyInList(assetInApplyQueryDto);
     }
 
     @Override
@@ -79,15 +79,16 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
     @Transactional
     @Override
     public int updateAssetInApply(AssetInApplySaveDto assetInApplySaveDto) {
-
-        AssetInApply assetInApply = new AssetInApply();
+        AssetInApply assetInApply = assetInApplyMapper.selectAssetInApplyById(assetInApplySaveDto.getId());
         BeanUtils.copyProperties(assetInApplySaveDto, assetInApply);
-
-        if(!assetInApply.getStatus().equals(AssetApplyStatus.DRAFT)){
+        assetInApply.setUpdateBy(SecurityUtils.getUsername());
+        assetInApply.setUpdateTime(DateUtils.getNowDate());
+        System.out.println("assetInApply"+assetInApply);
+        if (!assetInApply.getStatus().equals(AssetApplyStatus.DRAFT)) {
             throw new RuntimeException("入库申请单必须是草稿状态下才能修改");
         }
 
-        int rows = assetInApplyMapper.updateAssetOutApply(assetInApply);
+        int rows = assetInApplyMapper.updateAssetInApply(assetInApply);
 
         if (!assetInApply.getDetailList().isEmpty()) {
             // 删除之前的包含该申请单的详情
@@ -109,7 +110,7 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
             assetInApplyDetailMapper.deleteAssetInApplyDetailByIds(id);
         }
         //  删除申请单
-        int rows = assetInApplyMapper.deleteAssetOutApplyByIds(ids);
+        int rows = assetInApplyMapper.deleteAssetInApplyByIds(ids);
         return rows;
     }
 
@@ -142,8 +143,8 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
             // 进行入库
             for (AssetInApplyDetail detail : details) {
                 Asset asset = assetMapper.selectAssetById(detail.getAssetId());
-                asset.setUsableStock(asset.getUsableStock() + detail.getQuantity());
-                asset.setTotalStock(asset.getTotalStock() + detail.getQuantity());
+                asset.setUsableStock(asset.getUsableStock() + detail.getCount());
+                asset.setTotalStock(asset.getTotalStock() + detail.getCount());
                 asset.setUpdateTime(DateUtils.getNowDate());
                 assetMapper.updateAsset(asset);
             }

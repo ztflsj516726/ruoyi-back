@@ -57,7 +57,7 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
     private NotificationService notificationService;
 
     @Override
-    public int InsertAssetOutApply(AssetOutApplySaveDto assetApplyDto) {
+    public int InsertAssetInApply(AssetOutApplySaveDto assetApplyDto) {
         AssetOutApply assetOutApply = new AssetOutApply();
         BeanUtils.copyProperties(assetApplyDto, assetOutApply);
         assetOutApply.setCreateBy(SecurityUtils.getUsername());
@@ -67,20 +67,20 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
         assetOutApply.setDeptId(SecurityUtils.getDeptId());
         assetOutApply.setStatus(AssetApplyStatus.DRAFT);
         // 插入主表
-        assetOutApplyMapper.InsertAssetOutApply(assetOutApply);
+        assetOutApplyMapper.InsertAssetInApply(assetOutApply);
 
         // 插入子表
         if (assetOutApply.getDetailList() != null && !assetOutApply.getDetailList().isEmpty()) {
             for (AssetOutApplyDetail detail : assetOutApply.getDetailList()) {
                 detail.setApplyId(assetOutApply.getId());
             }
-            assetOutApplyDetailMapper.InsertAssetOutApplyDetails(assetOutApply.getDetailList());
+            assetOutApplyDetailMapper.InsertAssetInApplyDetails(assetOutApply.getDetailList());
         }
         return 1;
     }
 
     @Override
-    public int updateAssetOutApply(AssetOutApplySaveDto assetApplyDto) {
+    public int updateAssetInApply(AssetOutApplySaveDto assetApplyDto) {
         AssetOutApply assetOutApply1 = assetOutApplyMapper.selectAssetOutApplyById(assetApplyDto.getId());
         if (assetOutApply1 == null) {
             throw new RuntimeException("申请单不存在");
@@ -92,7 +92,7 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
         assetOutApply.setUpdateBy(SecurityUtils.getUsername());
 
         // 更新主表
-        assetOutApplyMapper.updateAssetOutApply(assetOutApply);
+        assetOutApplyMapper.updateAssetInApply(assetOutApply);
         // 删除子表
         assetOutApplyMapper.deleteAssetApplyDetail(assetOutApply.getId());
         // 添加子表
@@ -100,7 +100,7 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
             for (AssetOutApplyDetail detail : assetOutApply.getDetailList()) {
                 detail.setApplyId(assetOutApply.getId());
             }
-            assetOutApplyDetailMapper.InsertAssetOutApplyDetails(assetOutApply.getDetailList());
+            assetOutApplyDetailMapper.InsertAssetInApplyDetails(assetOutApply.getDetailList());
         }
         return 1;
     }
@@ -115,19 +115,19 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
 
     @Override
     @Transactional
-    public int deleteAssetOutApplyByIds(Long[] ids) {
+    public int deleteAssetInApplyByIds(Long[] ids) {
         // 删除子表
         for (Long id : ids) {
             assetOutApplyMapper.deleteAssetApplyDetail(id);
         }
         // 删除主表
-        return assetOutApplyMapper.deleteAssetOutApplyByIds(ids);
+        return assetOutApplyMapper.deleteAssetInApplyByIds(ids);
     }
 
     @Override
     public List<AssetOutApply> selectAssetList(AssetOutApplyQueryDto assetOutApplyQueryDto) {
         assetOutApplyQueryDto.setApplyUserId(SecurityUtils.getUserId());
-        return assetOutApplyMapper.selectAssetApplyList(assetOutApplyQueryDto);
+        return assetOutApplyMapper.selectAssetApplyInList(assetOutApplyQueryDto);
     }
 
 
@@ -220,7 +220,7 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
             notificationService.sendApproveMail(sysUser.getEmail(), "资产申请单审核结果", "资产申请单审核结果：您的资产申请已通过");
         }
         assetOutApply.setStatus(type);
-        return assetOutApplyMapper.updateAssetOutApply(assetOutApply);
+        return assetOutApplyMapper.updateAssetInApply(assetOutApply);
     }
 
     @Override
@@ -228,6 +228,6 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
         AssetOutApplyQueryDto assetOutApplyQueryDto = new AssetOutApplyQueryDto();
         BeanUtils.copyProperties(myTodoQueryDto, assetOutApplyQueryDto);
         assetOutApplyQueryDto.setCheckUserId(SecurityUtils.getUserId());
-        return assetOutApplyMapper.selectAssetApplyList(assetOutApplyQueryDto);
+        return assetOutApplyMapper.selectAssetApplyInList(assetOutApplyQueryDto);
     }
 }

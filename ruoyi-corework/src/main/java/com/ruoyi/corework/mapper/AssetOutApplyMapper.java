@@ -20,20 +20,20 @@ import java.util.List;
 public interface AssetOutApplyMapper {
 
     // 新增申请单
-    int InsertAssetOutApply(AssetOutApply assetOutApply);
+    int InsertAssetInApply(AssetOutApply assetOutApply);
 
     // 修改申请单
-    int updateAssetOutApply(AssetOutApply assetOutApply);
+    int updateAssetInApply(AssetOutApply assetOutApply);
 
     // 删除子表
     int deleteAssetApplyDetail(Long applyId);
 
     // 删除申请单
-    int deleteAssetOutApplyByIds(Long[] ids);
+    int deleteAssetInApplyByIds(Long[] ids);
 
     // 查询申请单
     AssetOutApply selectAssetOutApplyById(Long id);
 
     // 查询申请单
-    List<AssetOutApply> selectAssetApplyList(AssetOutApplyQueryDto assetOutApplyQueryDto);
+    List<AssetOutApply> selectAssetApplyInList(AssetOutApplyQueryDto assetOutApplyQueryDto);
 }

@@ -34,8 +34,8 @@ public class AssetInApply {
     @ApiModelProperty(value = "仓库ID", required = true)
     private Long warehouseId;
 
-    @ApiModelProperty(value = "供应商ID")
-    private Long supplierId;
+    @ApiModelProperty(value = "供应商名称")
+    private String supplier;
 
     @ApiModelProperty(value = "单据状态（draft 草稿 pending 审批中 approved 已通过 rejected 已驳回）", required = true)
     private String status;

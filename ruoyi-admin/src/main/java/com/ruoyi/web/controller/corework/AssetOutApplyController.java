@@ -40,8 +40,8 @@ public class AssetOutApplyController extends BaseController {
     public AjaxResult apply(@RequestBody AssetOutApplySaveDto assetOutApplySaveDto) {
         String operation = assetOutApplySaveDto.getId() == null ? "新增" : "修改";
         int result = assetOutApplySaveDto.getId() == null
-                ? iAssetOutApplyService.InsertAssetOutApply(assetOutApplySaveDto)
-                : iAssetOutApplyService.updateAssetOutApply(assetOutApplySaveDto);
+                ? iAssetOutApplyService.InsertAssetInApply(assetOutApplySaveDto)
+                : iAssetOutApplyService.updateAssetInApply(assetOutApplySaveDto);
         return result > 0 ? AjaxResult.success(operation + "成功") : AjaxResult.error(operation + "失败");
     }
 
@@ -62,7 +62,7 @@ public class AssetOutApplyController extends BaseController {
     @PostMapping("/delete")
     @ApiOperation("删除申请单")
     public AjaxResult delete(@RequestBody Long[] ids) {
-        return iAssetOutApplyService.deleteAssetOutApplyByIds(ids) > 0 ? AjaxResult.success("删除成功") : AjaxResult.error("删除失败");
+        return iAssetOutApplyService.deleteAssetInApplyByIds(ids) > 0 ? AjaxResult.success("删除成功") : AjaxResult.error("删除失败");
     }
 
     @PostMapping("/submit/{id}")

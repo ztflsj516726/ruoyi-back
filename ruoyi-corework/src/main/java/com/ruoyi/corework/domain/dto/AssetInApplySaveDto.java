@@ -28,8 +28,8 @@ public class AssetInApplySaveDto {
     @ApiModelProperty(value = "仓库ID", required = true)
     private Long warehouseId;
 
-    @ApiModelProperty(value = "供应商ID")
-    private Long supplierId;
+    @ApiModelProperty(value = "供应商名称")
+    private String supplier;
 
     @ApiModelProperty(value = "总金额")
     private BigDecimal totalAmount;

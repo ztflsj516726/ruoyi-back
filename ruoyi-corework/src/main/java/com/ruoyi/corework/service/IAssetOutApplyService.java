@@ -19,14 +19,14 @@ import java.util.List;
 
 public interface IAssetOutApplyService {
 
-    int InsertAssetOutApply(AssetOutApplySaveDto assetApplyDto);
+    int InsertAssetInApply(AssetOutApplySaveDto assetApplyDto);
 
-    int updateAssetOutApply(AssetOutApplySaveDto assetApplyDto);
+    int updateAssetInApply(AssetOutApplySaveDto assetApplyDto);
 
     AssetOutApply selectAssetOutApplyById(Long id);
 
 
-    int deleteAssetOutApplyByIds(Long[] ids);
+    int deleteAssetInApplyByIds(Long[] ids);
 
     List<AssetOutApply> selectAssetList(AssetOutApplyQueryDto assetOutApplyQueryDto);
 

@@ -8,7 +8,7 @@
     <insert id="InsertAssetInApplyDetail">
         insert into asset_apply_in_detail (
         apply_id, asset_id, asset_name, asset_unit,
-        quantity, unit_price, total_price, batch_code,
+        count, unit_price, total_price, batch_code,
         production_date, remark, create_time
         )
         values (
@@ -16,7 +16,7 @@
         #{assetId},
         #{assetName},
         #{assetUnit},
-        #{quantity},
+        #{count},
         #{unitPrice},
         #{totalPrice},
         #{batchCode},

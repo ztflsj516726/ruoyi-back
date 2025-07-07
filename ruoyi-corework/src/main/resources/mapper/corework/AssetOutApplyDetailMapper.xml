@@ -5,7 +5,7 @@
 <!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
 <mapper namespace="com.ruoyi.corework.mapper.AssetOutApplyDetailMapper">
 
-    <insert id="InsertAssetOutApplyDetails" useGeneratedKeys="true" keyProperty="id">
+    <insert id="InsertAssetInApplyDetails" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO asset_apply_out_detail(apply_id, asset_id, count)
         VALUES
         <foreach collection="list" item="item" separator=",">

@@ -5,13 +5,13 @@
 <!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
 <mapper namespace="com.ruoyi.corework.mapper.AssetInApplyMapper">
 
-    <insert id="InsertAssetOutApply" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO asset_apply_in(apply_code, apply_title, warehouse_id, supplier_id, status, total_amount, remark,
+    <insert id="InsertAssetInApply" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO asset_apply_in(apply_code, apply_title, warehouse_id, supplier, status, total_amount, remark,
         create_by, create_time, update_by, update_time)
-        VALUES (#{applyCode}, #{applyTitle}, #{warehouseId}, #{supplierId}, #{status}, #{totalAmount}, #{remark},
+        VALUES (#{applyCode}, #{applyTitle}, #{warehouseId}, #{supplier}, #{status}, #{totalAmount}, #{remark},
         #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
     </insert>
-    <update id="updateAssetOutApply">
+    <update id="updateAssetInApply">
         UPDATE asset_apply_in
         <set>
             <if test="applyTitle != null">
@@ -20,8 +20,8 @@
             <if test="warehouseId != null">
                 warehouse_id = #{warehouseId},
             </if>
-            <if test="supplierId != null">
-                supplier_id = #{supplierId},
+            <if test="supplier != null">
+                supplier = #{supplier},
             </if>
             <if test="status != null">
                 status = #{status},
@@ -29,7 +29,7 @@
             <if test="totalAmount != null">
                 total_amount = #{totalAmount},
             </if>
-            <if test="remark != remark">
+            <if test="remark != null">
                 remark = #{remark},
             </if>
             <if test="updateBy != updateBy">
@@ -50,14 +50,14 @@
         </set>
         WHERE id = #{id}
     </update>
-    <delete id="deleteAssetOutApplyByIds" parameterType="String">
+    <delete id="deleteAssetInApplyByIds" parameterType="String">
         DELETE FROM asset_apply_in
         WHERE id IN
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    <select id="selectAssetApplyList" resultType="com.ruoyi.corework.domain.AssetInApply">
+    <select id="selectAssetApplyInList" resultType="com.ruoyi.corework.domain.AssetInApply">
         SELECT * FROM asset_apply_in
         <where>
             <if test="applyCode != null and applyCode != ''">
@@ -67,10 +67,10 @@
                 AND status = #{status}
             </if>
         </where>
+        ORDER BY create_time DESC
     </select>
     <select id="selectAssetInApplyById" resultType="com.ruoyi.corework.domain.AssetInApply">
         SELECT * FROM asset_apply_in
         WHERE id = #{id}
-        ORDER BY create_time DESC
     </select>
 </mapper>
