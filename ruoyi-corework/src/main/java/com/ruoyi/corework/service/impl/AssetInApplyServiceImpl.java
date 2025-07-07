@@ -3,15 +3,18 @@ package com.ruoyi.corework.service.impl;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.corework.constant.AssetApplyStatus;
+import com.ruoyi.corework.constant.AssetOperStatus;
 import com.ruoyi.corework.domain.Asset;
 import com.ruoyi.corework.domain.AssetInApply;
 import com.ruoyi.corework.domain.AssetInApplyDetail;
+import com.ruoyi.corework.domain.AssetOper;
 import com.ruoyi.corework.domain.dto.AssetInApplyQueryDto;
 import com.ruoyi.corework.domain.dto.AssetInApplySaveDto;
 import com.ruoyi.corework.domain.dto.AssetOutApplySaveDto;
 import com.ruoyi.corework.mapper.AssetInApplyDetailMapper;
 import com.ruoyi.corework.mapper.AssetInApplyMapper;
 import com.ruoyi.corework.mapper.AssetMapper;
+import com.ruoyi.corework.mapper.AssetOperMapper;
 import com.ruoyi.corework.service.IAssetInApplyService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,9 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
 
     @Autowired
     private AssetMapper assetMapper;
+
+    @Autowired
+    private AssetOperMapper assetOperMapper;
 
     @Override
     @Transactional
@@ -147,7 +153,20 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
                 asset.setTotalStock(asset.getTotalStock() + detail.getCount());
                 asset.setUpdateTime(DateUtils.getNowDate());
                 assetMapper.updateAsset(asset);
+                // 生成流水记录
+                AssetOper assetOper = AssetOper.builder()
+                        .assetId(detail.getAssetId())
+                        .applyId(assetInApply.getId())
+                        .operType(AssetOperStatus.IN)
+                        .operNum(detail.getCount())
+                        .beforeUseableStock(asset.getUsableStock())
+                        .afterUseableStock(asset.getUsableStock() + detail.getCount())
+                        .createBy(assetInApply.getCreateBy())
+                        .createTime(DateUtils.getNowDate())
+                    .build();
+                assetOperMapper.InsertAssetOper(assetOper);
             }
+
         }
 
         // 拒绝
@@ -157,7 +176,6 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
                 throw new RuntimeException("单据不是待审批状态，无法拒绝！");
             }
         }
-
         // 通过
         return assetInApplyMapper.updateStatus(id, status);
     }

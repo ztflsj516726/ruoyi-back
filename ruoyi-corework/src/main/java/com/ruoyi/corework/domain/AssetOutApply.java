@@ -23,14 +23,14 @@ import java.util.List;
 @ApiModel("出库申请单")
 public class AssetOutApply extends BaseEntity {
 
-    @ApiModelProperty("申请单id")
+    @ApiModelProperty("出库申请单id")
     private Long id;
+
+    @ApiModelProperty("出库申请单号")
+    private String applyCode;
 
     @ApiModelProperty("申请人id")
     private Long applyUserId;
-
-    @ApiModelProperty("审批人")
-    private Long checkUserId;
 
     @ApiModelProperty("申请所属部门")
     private Long deptId;

@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * ClassName:AssetOutApplyServiceImpl
@@ -66,6 +67,7 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
         assetOutApply.setApplyUserId(SecurityUtils.getUserId());
         assetOutApply.setDeptId(SecurityUtils.getDeptId());
         assetOutApply.setStatus(AssetApplyStatus.DRAFT);
+        assetOutApply.setApplyCode(generateApplyCode());
         // 插入主表
         assetOutApplyMapper.InsertAssetInApply(assetOutApply);
 
@@ -227,7 +229,12 @@ public class AssetOutApplyServiceImpl implements IAssetOutApplyService {
     public List<AssetOutApply> selectMyAssetApplyList(MyTodoQueryDto myTodoQueryDto) {
         AssetOutApplyQueryDto assetOutApplyQueryDto = new AssetOutApplyQueryDto();
         BeanUtils.copyProperties(myTodoQueryDto, assetOutApplyQueryDto);
-        assetOutApplyQueryDto.setCheckUserId(SecurityUtils.getUserId());
         return assetOutApplyMapper.selectAssetApplyInList(assetOutApplyQueryDto);
+    }
+
+    private String generateApplyCode() {
+        String prefix = "CK" + DateUtils.dateTimeNow("yyyyMMdd");
+        int randomNum = new Random().nextInt(9000) + 1000; // 4位随机数
+        return prefix + randomNum;
     }
 }

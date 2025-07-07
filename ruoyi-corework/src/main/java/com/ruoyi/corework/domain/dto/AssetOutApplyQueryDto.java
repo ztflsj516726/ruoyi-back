@@ -24,8 +24,8 @@ public class AssetOutApplyQueryDto {
     @ApiModelProperty("申请所属部门")
     private Long deptId;
 
-    @ApiModelProperty("审批人")
-    private Long checkUserId;
+    @ApiModelProperty("申请单号")
+    private Long applyCode;
 
     @ApiModelProperty("创建人")
     private Long applyUserId;

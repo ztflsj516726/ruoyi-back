@@ -6,9 +6,9 @@
 <mapper namespace="com.ruoyi.corework.mapper.AssetOutApplyMapper">
     <!--  新增  -->
     <insert id="InsertAssetInApply" useGeneratedKeys="true" keyProperty="id">
-        Insert into asset_apply_out ( apply_user_id,check_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
+        Insert into asset_apply_out (apply_code, apply_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
         update_time,create_by, update_by)
-        values ( #{applyUserId},#{checkUserId},#{deptId}, #{applyTime}, #{status}, #{reason},
+        values (#{applyCode}, #{applyUserId},#{deptId}, #{applyTime}, #{status}, #{reason},
         #{flowId},#{createTime},#{updateTime},#{createBy},#{updateBy})
     </insert>
 
@@ -21,9 +21,6 @@
             </if>
             <if test="reason != null">
                 reason = #{reason},
-            </if>
-            <if test="checkUserId != null">
-                check_user_id = #{checkUserId},
             </if>
         </set>
         <where>
@@ -44,7 +41,7 @@
 
     <!--   详情  -->
     <select id="selectAssetOutApplyById" resultType="com.ruoyi.corework.domain.AssetOutApply">
-        select id, apply_user_id,check_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
+        select id,apply_code, apply_user_id,dept_id, apply_time, status, reason, flow_id,create_time,
         update_time,create_by, update_by
         from asset_apply_out
         where id = #{id}
@@ -60,8 +57,8 @@
 
     <resultMap id="AssetApplyResultMap" type="AssetOutApply">
         <id property="id" column="apply_id"/>
+        <result property="applyCode" column="apply_code"/>
         <result property="applyUserId" column="apply_user_id"/>
-        <result property="checkUserId" column="check_user_id"/>
         <result property="deptId" column="dept_id"/>
         <result property="deptName" column="dept_name"/>
         <result property="applyTime" column="apply_time"/>
@@ -80,8 +77,8 @@
     <select id="selectAssetApplyInList" resultMap="AssetApplyResultMap">
         SELECT
         a.id AS apply_id,
+        a.apply_code,
         a.apply_user_id,
-        a.check_user_id,
         a.dept_id,
         p.dept_name,
         a.apply_time,
@@ -104,7 +101,7 @@
         <where>
             <if test="deptId != null ">and dept_id = #{deptId}</if>
             <if test="status != null ">and a.status = #{status}</if>
-            <if test="checkUserId != null ">and a.check_user_id = #{checkUserId}</if>
+            <if test="applyCode != null ">and a.apply_code = #{applyCode}</if>
             <if test="applyUserId != null ">and a.apply_user_id = #{applyUserId}</if>
         </where>
         ORDER BY create_time DESC
