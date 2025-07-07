@@ -26,4 +26,8 @@ public interface IAssetInApplyService {
 
     int updateAssetInApply(AssetInApplySaveDto assetInApplySaveDto);
 
+    int deleteAssetInApplyByIds(Long[] ids);
+
+    int updateStatus(Long id, String status);
+
 }

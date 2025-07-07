@@ -3,6 +3,7 @@ package com.ruoyi.corework.mapper;
 import com.ruoyi.corework.domain.AssetInApply;
 import com.ruoyi.corework.domain.dto.AssetInApplyQueryDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,5 +26,9 @@ public interface AssetInApplyMapper {
     AssetInApply selectAssetInApplyById(Long id);
 
     int updateAssetOutApply(AssetInApply assetInApply);
+
+    int deleteAssetOutApplyByIds(Long[] ids);
+
+    int updateStatus(@Param("id") Long id,@Param("status") String status);
 
 }

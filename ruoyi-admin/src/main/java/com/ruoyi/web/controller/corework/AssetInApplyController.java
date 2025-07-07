@@ -4,7 +4,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.AjaxResultVo;
 import com.ruoyi.common.core.page.TableDataInfo;
-import com.ruoyi.corework.domain.Asset;
+import com.ruoyi.corework.constant.AssetApplyStatus;
 import com.ruoyi.corework.domain.AssetInApply;
 import com.ruoyi.corework.domain.dto.AssetInApplyQueryDto;
 import com.ruoyi.corework.domain.dto.AssetInApplySaveDto;
@@ -36,17 +36,13 @@ public class AssetInApplyController extends BaseController {
     @ApiOperation("入库申请新增/修改")
     @PostMapping("/applySave")
     public AjaxResult apply(@RequestBody AssetInApplySaveDto assetInApplySaveDto) {
-        int num = 0;
+        boolean success;
         if (assetInApplySaveDto.getId() == null) {
-            num = assetInApplyService.InsertAssetInApply(assetInApplySaveDto);
+            success = assetInApplyService.InsertAssetInApply(assetInApplySaveDto) > 0;
         } else {
-            num = assetInApplyService.updateAssetInApply(assetInApplySaveDto);
+            success = assetInApplyService.updateAssetInApply(assetInApplySaveDto) > 0;
         }
-        if (num > 0) {
-            return AjaxResult.success();
-        } else {
-            return AjaxResult.error();
-        }
+        return success ? AjaxResult.success() : AjaxResult.error();
     }
 
     @ApiOperation("入库申请单列表")
@@ -62,5 +58,34 @@ public class AssetInApplyController extends BaseController {
     public AjaxResultVo<AssetInApply> detail(@PathVariable Long id) {
         AssetInApply assetInApply = assetInApplyService.selectAssetInApplyById(id);
         return AjaxResultVo.success(assetInApply);
+    }
+
+    @ApiOperation("入库申请单删除")
+    @PostMapping("/delete")
+    public AjaxResult delete(@RequestBody Long[] ids) {
+        System.out.println("ids" + ids);
+        int rows = assetInApplyService.deleteAssetInApplyByIds(ids);
+        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
+    }
+
+    @ApiOperation("入库申请单提交")
+    @PostMapping("/submit/{id}")
+    public AjaxResult submit(@PathVariable Long id) {
+        int rows = assetInApplyService.updateStatus(id, AssetApplyStatus.PENDING);
+        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
+    }
+
+    @ApiOperation("入库申请单通过")
+    @PostMapping("/approve/{id}")
+    public AjaxResult approve(@PathVariable Long id) {
+        int rows = assetInApplyService.updateStatus(id, AssetApplyStatus.APPROVED);
+        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
+    }
+
+    @ApiOperation("入库申请单拒绝")
+    @PostMapping("/reject/{id}")
+    public AjaxResult reject(@PathVariable Long id) {
+        int rows = assetInApplyService.updateStatus(id, AssetApplyStatus.REJECTED);
+        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
     }
 }

@@ -25,6 +25,9 @@
         #{createTime}
         )
     </insert>
+    <delete id="deleteAssetInApplyDetailByIds" parameterType="java.lang.Long">
+        delete from asset_apply_in_detail where apply_id = #{applyID}
+    </delete>
     <select id="selectAssetInApplyDetailList" resultType="com.ruoyi.corework.domain.AssetInApplyDetail">
         SELECT * FROM asset_apply_in_detail
         <where>

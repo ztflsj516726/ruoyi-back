@@ -20,4 +20,7 @@ public interface AssetInApplyDetailMapper {
     int InsertAssetInApplyDetail(AssetInApplyDetail assetInApplyDetail);
 
     List<AssetInApplyDetail> selectAssetInApplyDetailList(Long applyId);
+
+    int deleteAssetInApplyDetailByIds(Long applyId);
+
 }

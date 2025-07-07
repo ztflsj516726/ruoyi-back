@@ -41,6 +41,22 @@
         </set>
         WHERE id = #{id}
     </update>
+    <update id="updateStatus">
+        UPDATE asset_apply_in
+        <set>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteAssetOutApplyByIds" parameterType="String">
+        DELETE FROM asset_apply_in
+        WHERE id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
     <select id="selectAssetApplyList" resultType="com.ruoyi.corework.domain.AssetInApply">
         SELECT * FROM asset_apply_in
         <where>
