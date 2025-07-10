@@ -149,10 +149,6 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
             // 进行入库
             for (AssetInApplyDetail detail : details) {
                 Asset asset = assetMapper.selectAssetById(detail.getAssetId());
-                asset.setUsableStock(asset.getUsableStock() + detail.getCount());
-                asset.setTotalStock(asset.getTotalStock() + detail.getCount());
-                asset.setUpdateTime(DateUtils.getNowDate());
-                assetMapper.updateAsset(asset);
                 // 生成流水记录
                 AssetOper assetOper = AssetOper.builder()
                         .assetId(detail.getAssetId())
@@ -165,6 +161,11 @@ public class AssetInApplyServiceImpl implements IAssetInApplyService {
                         .createTime(DateUtils.getNowDate())
                     .build();
                 assetOperMapper.InsertAssetOper(assetOper);
+                // 更新物资信息
+                asset.setUsableStock(asset.getUsableStock() + detail.getCount());
+                asset.setTotalStock(asset.getTotalStock() + detail.getCount());
+                asset.setUpdateTime(DateUtils.getNowDate());
+                assetMapper.updateAsset(asset);
             }
 
         }
